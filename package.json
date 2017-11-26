@@ -4,7 +4,8 @@
   "scripts": {
     "docker": "docker-compose up -d",
     "stopper": "docker-compose down",
-    "dev": "./node_modules/.bin/nodemon --ignore data/"
+    "ssh": "docker exec -i -t app /bin/bash",
+    "dev": "npm run ssh && nodemon --ignore data/"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
