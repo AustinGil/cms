@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const CLIENT_PATH = __dirname + '/client';
 
 app.get('/', function (req, res) {
-	res.sendFile(path.join(CLIENT_PATH + '/index.html'));
+	res.sendFile(path.join(CLIENT_PATH + '/dist/index.html'));
 });
 
 app.get('/api/v1/articles', function (req, res) {
