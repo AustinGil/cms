@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express')
 const app = express()
 var bodyParser = require('body-parser');
@@ -13,12 +14,6 @@ var connection = mysql.createConnection({
 	// user: process.env.DB_USER,
 	// password: process.env.DB_PASS,
 	// database: process.env.DB_NAME,
-
-	// This works for the DB, but user is denied
-	// host: 'mysql',
-	// user: 'root',
-	// password: 'root',
-	// database: 'test'
 
 	// This works with Docker variables
 	host: process.env['MYSQL_PORT_3306_TCP_ADDR'],
@@ -38,9 +33,11 @@ connection.connect(function (err) {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+const CLIENT_PATH = __dirname + '/client';
+
 app.get('/', function (req, res) {
-	res.send('Docker is awesome')
-})
+	res.sendFile(path.join(CLIENT_PATH + '/index.html'));
+});
 
 app.get('/api/v1/articles', function (req, res) {
 	connection.query(`select * from articles`, function (err, result) {
