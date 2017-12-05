@@ -33,7 +33,7 @@ connection.connect(function (err) {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-const CLIENT_PATH = __dirname + '/client';
+const CLIENT_PATH = path.join(__dirname + '/client');
 
 app.get('/', function (req, res) {
 	res.sendFile(path.join(CLIENT_PATH + '/dist/index.html'));
@@ -46,8 +46,8 @@ app.get('/api/v1/articles', function (req, res) {
 			return;
 		}
 		res.json(result);
-	})
-})
+	});
+});
 
 app.post('/api/v1/articles', function (req, res) {
 	var newArticle = {
@@ -62,8 +62,8 @@ app.post('/api/v1/articles', function (req, res) {
 		}
 		console.log(result);
 		res.send(result);
-	})
-})
+	});
+});
 
 app.get('/api/v1/article/:id', function (req, res) {
 	connection.query(`SELECT * FROM articles WHERE id = ${req.params.id}`, function (err, result) {
@@ -72,12 +72,14 @@ app.get('/api/v1/article/:id', function (req, res) {
 			return;
 		}
 		res.json(result);
-	})
-})
+	});
+});
 
-app.listen(3000, function () {
-	console.log('Example app listening on port 3000!')
-})
+const port = process.env.PORT || 3000;
+
+app.listen(port, function () {
+	console.log(`App listening on port ${port}!`);
+});
 
 // // Mongo
 // const MongoClient = require('mongodb').MongoClient
