@@ -5,17 +5,14 @@
     "docker": "docker-compose up -d",
     "restart": "docker-compose restart",
     "stopper": "docker-compose down",
-    "ssh": "docker exec -i -t app /bin/bash",
-    "dev": "npm run ssh && nodemon --ignore data/"
+    "ssh": "docker exec -i -t app /bin/bash"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "mysql2": "^1.5.1",
-    "sequelize": "^4.23.0",
-    "vue": "^2.5.9",
-    "vue-server-renderer": "^2.5.9"
+    "sequelize": "^4.23.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

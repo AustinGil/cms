@@ -1,19 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <hello-world></hello-world>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'app'
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import HelloWorld from "./components/HelloWorld.vue";
+
+@Component({
+  components: { HelloWorld }
+})
+export default class App extends Vue {
+  title: string;
+
+  constructor() {
+    super();
+    this.title = "Hello World!";
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
