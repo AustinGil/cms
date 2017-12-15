@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <hello-world></hello-world>
+    <hello-world/>
   </div>
 </template>
 
@@ -12,14 +12,7 @@ import HelloWorld from "./components/HelloWorld.vue";
 @Component({
   components: { HelloWorld }
 })
-export default class App extends Vue {
-  title: string;
-
-  constructor() {
-    super();
-    this.title = "Hello World!";
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style>
