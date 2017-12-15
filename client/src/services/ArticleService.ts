@@ -5,7 +5,7 @@ export default {
   getArticles(options: any) {
     let url;
     url = 'https://jsonplaceholder.typicode.com/posts';
-    url = 'https://httpstat.us/500'; // Server error
+    // url = 'https://httpstat.us/500'; // Server error
     // url = 'http://localhost:3001/api/v1/articles';
     const myHeaders: Headers = new Headers();
 
