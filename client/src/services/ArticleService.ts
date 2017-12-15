@@ -6,12 +6,12 @@ export default {
     let url;
     url = 'https://jsonplaceholder.typicode.com/posts';
     // url = 'https://httpstat.us/500'; // Server error
-    // url = 'http://localhost:3001/api/v1/articles';
-    const myHeaders: Headers = new Headers();
+    url = 'http://localhost:3001/api/v1/articles';
+    const headers: Headers = new Headers();
 
     let myInit = {
       method: 'GET',
-      headers: myHeaders,
+      headers,
       // mode: 'cors',
       // cache: 'default'
     };

@@ -14,6 +14,24 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+// TODO: Come back and look into this.
+app.use((req, res, next) => {
+	const origin = req.get('origin');
+
+	// TODO Add origin validation
+	res.header('Access-Control-Allow-Origin', origin);
+	res.header('Access-Control-Allow-Credentials', true);
+	res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
+
+	// intercept OPTIONS method
+	if (req.method === 'OPTIONS') {
+		res.sendStatus(204);
+	} else {
+		next();
+	}
+});
+
 const CLIENT_PATH = path.join(__dirname + '/client');
 
 app.get('/', function (req, res) {
