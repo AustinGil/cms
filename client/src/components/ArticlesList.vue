@@ -1,6 +1,5 @@
 <template>
   <div class="articles-list">
-    <h1>{{ msg }}</h1>
     <button @click="handleClick($event)">Click</button>
     <p v-if="error">{{ error }}</p>
     <p v-if="isLoading">Loading...</p>
@@ -31,7 +30,6 @@ export default class ArticlesList extends Vue {
 
   constructor() {
     super();
-    this.msg = "Welcome to Your Vue.js App!";
     this.articles = [];
   }
 
