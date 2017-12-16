@@ -5,7 +5,7 @@
     <p v-if="isLoading">Loading...</p>
     <div v-else>
       <ul v-if="articles">
-        <li v-for="(article, index) in articles" :key="article.id">
+        <li v-for="article in articles" :key="article.id">
           {{ article.title }}
         </li>
       </ul>
