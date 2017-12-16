@@ -2,14 +2,22 @@
   <v-app id="app">
     <v-navigation-drawer fixed v-model="drawer" app>
       <v-list dense>
-        <v-list-tile router-link="/">
+        <router-link to="/" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </router-link>
+        <router-link to="/articles/add" tag="v-list-tile">
+          <v-list-tile-action>
+            <v-icon>add</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Add Article</v-list-tile-title>
+          </v-list-tile-content>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
 
