@@ -2,6 +2,7 @@ const { Article } = require('../models')
 
 module.exports = {
 	async addArticles(req, res) {
+		console.log(req);
 		try {
 			const article = await Article.create(req.body);
 			res.send(article);
@@ -13,6 +14,7 @@ module.exports = {
 			});
 		}
 	},
+
 	async getArticles(req, res) {
 		try {
 			let articles = null;

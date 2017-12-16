@@ -29,9 +29,19 @@ export default {
   },
 
   addArticle(article: Article) {
+    // TODO: Add backend validation
     const url = 'http://localhost:3001/api/v1/articles';
 
-    return fetch(url, { method: 'POST' }).then((response: any) => {
+    const reqParams = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(article)
+    }
+
+    return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
         case 500:
           throw new Error("Oops, the server broke...");

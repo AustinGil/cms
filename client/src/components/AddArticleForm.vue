@@ -53,7 +53,13 @@ export default class AddArticleForm extends Vue {
 
   async handleSubmit() {
     try {
-      await ArticleService.addArticle(this.newArticle);
+      const newArticle: Article = {
+        title: this.newArticle.title,
+        author: 1,
+        body: this.newArticle.body
+      };
+      await ArticleService.addArticle(newArticle);
+      this.$router.push("/");
     } catch (error) {
       console.log(error);
       // this.error = error.message;
