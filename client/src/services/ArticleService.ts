@@ -2,22 +2,24 @@
 import { ApiOptions } from '../models/ApiOptions';
 import { Article } from '../models/Article';
 
+const url = 'http://localhost:3001/api/v1/articles';
+const headers = {
+  'Accept': 'application/json, text/plain, */*',
+  'Content-Type': 'application/json'
+};
+
 export default {
   getArticles(options: ApiOptions) {
-    let url;
-    url = 'https://jsonplaceholder.typicode.com/posts';
+    // url = 'https://jsonplaceholder.typicode.com/posts';
     // url = 'https://httpstat.us/500'; // Server error
-    url = 'http://localhost:3001/api/v1/articles';
-    const headers: Headers = new Headers();
-
-    let myInit = {
+    // const headers: Headers = new Headers();
+    let reqParams = {
       method: 'GET',
-      headers,
+      // headers,
       // mode: 'cors',
       // cache: 'default'
     };
-
-    return fetch(url, myInit).then((response: any) => {
+    return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
         case 500:
           throw new Error("Oops, the server broke...");
@@ -30,17 +32,11 @@ export default {
 
   addArticle(article: Article) {
     // TODO: Add backend validation
-    const url = 'http://localhost:3001/api/v1/articles';
-
     const reqParams = {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify(article)
     }
-
     return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
         case 500:
@@ -49,6 +45,46 @@ export default {
         default:
           return response.json();
       }
-    })
+    });
+  },
+
+  deleteArticles(articleIds: number | number[]) {
+    // const reqParams = {
+    //   method: 'DELETE',
+    //   headers,
+    //   body: JSON.stringify(articleIds)
+    // }
+    // return fetch(url, reqParams).then((response: any) => {
+    //   console.log(response.json())
+    //   // switch (response.status) {
+    //   //   case 500:
+    //   //     throw new Error("Oops, the server broke...");
+
+    //   //   default:
+    //   //     return response.json();
+    //   // }
+    // });
+
+
+    // const request = new Request(url, {
+    //   method: 'DELETE',
+    //   mode: 'cors',
+    //   headers: new Headers({
+    //     'Accept': 'application/json, text/plain, */*',
+    //     'Content-Type': 'application/json'
+    //   }),
+    //   body: JSON.stringify(articleIds)
+    // });
+
+    // return fetch(request).then((response: any) => {
+    //   console.log(response.json());
+    //   switch (response.status) {
+    //     case 500:
+    //       throw new Error("Oops, the server broke...");
+
+    //     default:
+    //       return response.json();
+    //   }
+    // });
   }
 }

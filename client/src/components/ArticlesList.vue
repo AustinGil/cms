@@ -1,12 +1,12 @@
 <template>
   <div class="articles-list">
-    <button @click="handleClick($event)">Click</button>
     <p v-if="error">{{ error }}</p>
     <p v-if="isLoading">Loading...</p>
     <div v-else>
       <ul v-if="articles">
         <li v-for="article in articles" :key="article.id">
           {{ article.title }}
+          <button @click="deleteArticle(article.id)">X</button>
         </li>
       </ul>
       <p v-else>No articles</p>
@@ -21,10 +21,13 @@ import Component from "vue-class-component";
 // Services
 import ArticleService from "../services/ArticleService";
 
+// Models
+import { Article } from "../models/Article";
+
 @Component({})
 export default class ArticlesList extends Vue {
   msg: string;
-  articles: any[];
+  articles: Article[];
   error: string = "";
   isLoading: boolean = false;
 
@@ -33,7 +36,7 @@ export default class ArticlesList extends Vue {
     this.articles = [];
   }
 
-  async handleClick() {
+  async created() {
     this.isLoading = true;
     this.error = "";
     try {
@@ -43,6 +46,14 @@ export default class ArticlesList extends Vue {
       this.error = error.message;
     }
     this.isLoading = false;
+  }
+
+  async deleteArticle(articleIds: number | number[]) {
+    if (confirm(`Are you sure you want to do that?`) == true) {
+      await ArticleService.deleteArticles(articleIds);
+    } else {
+      // TODO
+    }
   }
 }
 </script>

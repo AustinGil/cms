@@ -46,6 +46,7 @@ module.exports = {
 			});
 		}
 	},
+
 	async getArticle(req, res) {
 		try {
 			const article = await Article.findById(req.params.id);
@@ -58,23 +59,41 @@ module.exports = {
 			});
 		}
 	},
+
 	async editArticle(req, res) {
-		try {
-			await Article.update(req.body, {
-				where: {
-					id: req.params.articleId
-				}
-			});
-			res.send(req.body);
-		}
-		catch (err) {
-			console.log(err);
-			res.status(500).send({
-				error: 'An error has occured trying to update the article'
-			});
-		}
+		// try {
+		// 	await Article.update(req.body, {
+		// 		where: {
+		// 			id: req.params.articleId
+		// 		}
+		// 	});
+		// 	res.send(req.body);
+		// }
+		// catch (err) {
+		// 	console.log(err);
+		// 	res.status(500).send({
+		// 		error: 'An error has occured trying to update the article'
+		// 	});
+		// }
 	},
-	async removeArticles(req, res) {
-		// Logic for deleting one or many articles
+
+	async deleteArticles(req, res) {
+		try {
+			// const { articleId } = req.body
+
+			// const article = await article.findOne({
+			// 	where: {
+			// 		id: articleId,
+			// 	}
+			// });
+			// await article.destroy();
+			// res.send(article);
+			res.send('test');
+		} catch (err) {
+			console.log(err)
+			res.status(500).send({
+				error: 'An error has occured trying to remove the article'
+			})
+		}
 	}
 }
