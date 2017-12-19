@@ -5,7 +5,7 @@
     <div v-else>
       <ul v-if="articles">
         <li v-for="article in articles" :key="article.id">
-          {{ article.title }}
+          <router-link :to="`articles/${article.id}`">{{ article.title }}</router-link>
           <button @click="deleteArticle(article.id)">X</button>
         </li>
       </ul>

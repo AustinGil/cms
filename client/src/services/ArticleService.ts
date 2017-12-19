@@ -3,10 +3,14 @@ import { ApiOptions } from '../models/ApiOptions';
 import { Article } from '../models/Article';
 
 const url = 'http://localhost:3001/api/v1/articles';
-const headers = {
+// const headers = {
+//   'Accept': 'application/json, text/plain, */*',
+//   'Content-Type': 'application/json'
+// };
+const headers = new Headers({
   'Accept': 'application/json, text/plain, */*',
   'Content-Type': 'application/json'
-};
+});
 
 export default {
   getArticles(options: ApiOptions) {
@@ -66,25 +70,24 @@ export default {
     // });
 
 
-    // const request = new Request(url, {
-    //   method: 'DELETE',
-    //   mode: 'cors',
-    //   headers: new Headers({
-    //     'Accept': 'application/json, text/plain, */*',
-    //     'Content-Type': 'application/json'
-    //   }),
-    //   body: JSON.stringify(articleIds)
-    // });
+    const request = new Request(url, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify(articleIds)
+    });
 
-    // return fetch(request).then((response: any) => {
-    //   console.log(response.json());
-    //   switch (response.status) {
-    //     case 500:
-    //       throw new Error("Oops, the server broke...");
+    console.log(request);
 
-    //     default:
-    //       return response.json();
-    //   }
-    // });
+    return fetch(request).then((response: any) => {
+      console.log(response);
+      // switch (response.status) {
+      //   case 500:
+      //     throw new Error("Oops, the server broke...");
+
+      //   default:
+      //     return response.json();
+      // }
+    });
   }
 }
