@@ -48,9 +48,10 @@ export default class ArticlesList extends Vue {
     this.isLoading = false;
   }
 
-  async deleteArticle(articleIds: number | number[]) {
+  async deleteArticle(articleId: number) {
     if (confirm(`Are you sure you want to do that?`) == true) {
-      await ArticleService.deleteArticles(articleIds);
+      const res = await ArticleService.deleteArticle(articleId);
+      console.log("res", res);
     } else {
       // TODO
     }

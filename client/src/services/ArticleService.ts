@@ -2,11 +2,8 @@
 import { ApiOptions } from '../models/ApiOptions';
 import { Article } from '../models/Article';
 
-const url = 'http://localhost:3001/api/v1/articles';
-// const headers = {
-//   'Accept': 'application/json, text/plain, */*',
-//   'Content-Type': 'application/json'
-// };
+let url = 'http://localhost:3001/api/v1/articles';
+
 const headers = new Headers({
   'Accept': 'application/json, text/plain, */*',
   'Content-Type': 'application/json'
@@ -16,12 +13,9 @@ export default {
   getArticles(options: ApiOptions) {
     // url = 'https://jsonplaceholder.typicode.com/posts';
     // url = 'https://httpstat.us/500'; // Server error
-    // const headers: Headers = new Headers();
     let reqParams = {
       method: 'GET',
-      // headers,
-      // mode: 'cors',
-      // cache: 'default'
+      // headers
     };
     return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
@@ -52,42 +46,21 @@ export default {
     });
   },
 
-  deleteArticles(articleIds: number | number[]) {
-    // const reqParams = {
-    //   method: 'DELETE',
-    //   headers,
-    //   body: JSON.stringify(articleIds)
-    // }
-    // return fetch(url, reqParams).then((response: any) => {
-    //   console.log(response.json())
-    //   // switch (response.status) {
-    //   //   case 500:
-    //   //     throw new Error("Oops, the server broke...");
+  deleteArticle(articleId: number) {
 
-    //   //   default:
-    //   //     return response.json();
-    //   // }
-    // });
-
-
-    const request = new Request(url, {
-      method: 'DELETE',
-      mode: 'cors',
-      headers,
-      body: JSON.stringify(articleIds)
+    const request = new Request(`${url}/${articleId}`, {
+      method: 'DELETE'
     });
 
-    console.log(request);
-
     return fetch(request).then((response: any) => {
-      console.log(response);
-      // switch (response.status) {
-      //   case 500:
-      //     throw new Error("Oops, the server broke...");
+      switch (response.status) {
+        case 500:
+          throw new Error("Oops, the server broke...");
 
-      //   default:
-      //     return response.json();
-      // }
+        default:
+          console.log(response);
+          return response.json();
+      }
     });
   }
 }

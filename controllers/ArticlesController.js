@@ -2,7 +2,6 @@ const { Article } = require('../models')
 
 module.exports = {
 	async addArticles(req, res) {
-		console.log(req);
 		try {
 			const article = await Article.create(req.body);
 			res.send(article);
@@ -79,16 +78,14 @@ module.exports = {
 
 	async deleteArticles(req, res) {
 		try {
-			// const { articleId } = req.body
-
-			// const article = await article.findOne({
-			// 	where: {
-			// 		id: articleId,
-			// 	}
-			// });
-			// await article.destroy();
-			// res.send(article);
-			res.send('test');
+			const { id } = req.params;
+			const article = await Article.findOne({
+				where: {
+					id,
+				}
+			});
+			article.destroy();
+			res.send(id);
 		} catch (err) {
 			console.log(err)
 			res.status(500).send({
