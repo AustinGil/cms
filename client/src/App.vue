@@ -36,16 +36,20 @@
     <v-footer color="indigo" app>
       <span class="white--text">&copy; 2017</span>
     </v-footer>
+
+    <notification></notification>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import ArticlesList from "./components/ArticlesList.vue";
+import Notification from "./components/Notification.vue";
 
 @Component({
-  components: { ArticlesList }
+  components: {
+    Notification
+  }
 })
 export default class App extends Vue {
   drawer: null;
