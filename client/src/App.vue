@@ -26,7 +26,6 @@
       <v-toolbar-title>Application</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <h1>Welcome to Your Vue.js App!</h1>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
           <router-view></router-view>
@@ -34,7 +33,7 @@
       </v-container>
     </v-content>
     <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2017</span>
+      <span class="white--text">&copy; {{ (new Date()).getFullYear() }}</span>
     </v-footer>
 
     <notification></notification>
