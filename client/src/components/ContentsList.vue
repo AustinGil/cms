@@ -1,5 +1,6 @@
 <template>
   <div class="contents-list">
+    <router-link to="contents/add" tag="button">Add Content</router-link>
     <p v-if="error">{{ error }}</p>
     <p v-if="isLoading">Loading...</p>
     <div v-else>
@@ -31,7 +32,7 @@ export default class ContentsList extends Vue {
   error: string = "";
   isLoading: boolean = false;
 
-  @Action createNotification: any;
+  // @Action addNotification: any;
 
   async created() {
     this.isLoading = true;
@@ -48,7 +49,8 @@ export default class ContentsList extends Vue {
   async deleteContent(contentId: number) {
     if (confirm(`Are you sure you want to do that?`) == true) {
       const res = await ContentService.deleteContent(contentId);
-      console.log("res", res);
+      // TODO: Change this to just updating state
+      window.history.go();
     } else {
       // TODO
     }

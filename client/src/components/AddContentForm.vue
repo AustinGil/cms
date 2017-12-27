@@ -1,5 +1,5 @@
 <template>
-  <form class="add-content" @submit="handleSubmit">
+  <form class="add-content" @submit.prevent="handleSubmit">
     <h3>Add an content</h3>
     <v-text-field
       v-model="newContent.title"
@@ -20,11 +20,8 @@
       multi-line>
     </v-text-field>
 
-    <v-btn
-      type="submit">
-      Submit
-    </v-btn>
-    <p class="error-text">Error text here</p>
+    <v-btn type="submit">Submit</v-btn>
+
     <!-- <v-btn @click="clear">clear</v-btn> -->
   </form>
 </template>
@@ -32,6 +29,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Action } from "vuex-class";
 
 // Services
 import ContentService from "../services/ContentService";
@@ -51,6 +49,8 @@ export default class AddContentForm extends Vue {
     };
   }
 
+  @Action addContent: any;
+
   async handleSubmit() {
     try {
       const newContent: Content = {
@@ -59,6 +59,7 @@ export default class AddContentForm extends Vue {
         body: this.newContent.body
       };
       await ContentService.addContent(newContent);
+      this.addContent(newContent);
       this.$router.push("/");
     } catch (error) {
       console.log(error);
