@@ -1,18 +1,29 @@
 <template>
-  <div class="contents-list">
-    <router-link to="contents/add" tag="button">Add Content</router-link>
-    <p v-if="error">{{ error }}</p>
+  <v-flex xs12 class="contents-list">
+    <p><a href="http://localhost:3001/api/v1/contents" target="_blank">View rest endpoint</a></p>
+    <router-link to="contents/add" tag="v-btn">Add new content</router-link>
+
     <p v-if="isLoading">Loading...</p>
+
     <div v-else>
-      <ul v-if="contents">
-        <li v-for="content in contents" :key="content.id">
-          <router-link :to="`contents/${content.id}`">{{ content.title }}</router-link>
-          <button @click="deleteContent(content.id)">X</button>
-        </li>
-      </ul>
+      <v-data-table
+        v-if="contents"
+        :headers="headers"
+        :items="contents"
+      class="elevation-1"
+      >
+        <template slot="items" slot-scope="props">
+          <td>
+            <router-link :to="`contents/${props.item.id}`">{{ props.item.title }}</router-link>
+            <button @click="deleteContent(props.item.id)">X</button>
+          </td>
+          <!-- <td class="text-xs-right">{{ props.item.calories }}</td> -->
+        </template>
+      </v-data-table>
+
       <p v-else>No contents</p>
     </div>
-  </div>
+  </v-flex>
 </template>
 
 <script lang="ts">
@@ -28,20 +39,26 @@ import { Content } from "../models/Content";
 
 @Component({})
 export default class ContentsList extends Vue {
+  headers: any[] = [
+    {
+      text: "Title",
+      align: "left",
+      // sortable: false;
+      value: "title"
+    }
+    // { text: "Calories"; value: "calories" }
+  ];
   contents: Content[] = [];
-  error: string = "";
   isLoading: boolean = false;
 
   @Action addNotification: any;
 
   async created() {
     this.isLoading = true;
-    this.error = "";
     try {
       this.contents = await ContentService.getContents({});
     } catch (error) {
       console.log(error);
-      this.error = error.message;
     }
     this.isLoading = false;
   }
