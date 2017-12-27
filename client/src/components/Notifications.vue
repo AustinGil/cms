@@ -1,7 +1,7 @@
 <template>
   <div v-if="notifications" class="notifications">
     <transition-group name="notification">
-      <v-toolbar v-for="(notification, index) in notifications" :key="index" color="indigo" dark :class="(notification.type) ? 'notification' : `notification notification--${notification.type}`">
+      <v-toolbar v-for="(notification, index) in notifications" :key="index" :color="notification.type" dark class="notification">
         <v-toolbar-title>{{ notification.content }}</v-toolbar-title>
       </v-toolbar>
     </transition-group>
