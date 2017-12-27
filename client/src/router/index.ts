@@ -15,7 +15,8 @@ export default new Router({
     {
       path: '/articles',
       name: 'ArticlesList',
-      component: ArticlesList
+      component: ArticlesList,
+      meta: { title: 'Articles' }
     },
     {
       path: '/articles/add',

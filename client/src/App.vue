@@ -28,7 +28,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          <router-view></router-view>
+          <router-view pageTitle=""></router-view>
         </v-layout>
       </v-container>
     </v-content>
@@ -36,18 +36,18 @@
       <span class="white--text">&copy; {{ (new Date()).getFullYear() }}</span>
     </v-footer>
 
-    <notification></notification>
+    <notifications></notifications>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import Notification from "./components/Notification.vue";
+import Notifications from "./components/Notifications.vue";
 
 @Component({
   components: {
-    Notification
+    Notifications
   }
 })
 export default class App extends Vue {
