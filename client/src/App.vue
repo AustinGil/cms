@@ -27,7 +27,7 @@
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-        <v-layout justify-center align-center>
+        <v-layout>
           <router-view pageTitle=""></router-view>
         </v-layout>
       </v-container>
@@ -65,6 +65,9 @@ export default class App extends Vue {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+}
+
+form {
+  width: 100%;
 }
 </style>
