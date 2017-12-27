@@ -50,6 +50,7 @@ export default class AddContentForm extends Vue {
   }
 
   @Action addContent: any;
+  @Action addNotification: any;
 
   async handleSubmit() {
     try {
@@ -60,10 +61,12 @@ export default class AddContentForm extends Vue {
       };
       await ContentService.addContent(newContent);
       this.addContent(newContent);
+      this.addNotification({ content: "yep" });
       this.$router.push("/");
     } catch (error) {
       console.log(error);
       // this.error = error.message;
+      this.addNotification({ content: "Error" });
     }
   }
 }

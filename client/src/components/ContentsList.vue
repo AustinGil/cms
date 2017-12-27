@@ -32,7 +32,7 @@ export default class ContentsList extends Vue {
   error: string = "";
   isLoading: boolean = false;
 
-  // @Action addNotification: any;
+  @Action addNotification: any;
 
   async created() {
     this.isLoading = true;
@@ -48,9 +48,13 @@ export default class ContentsList extends Vue {
 
   async deleteContent(contentId: number) {
     if (confirm(`Are you sure you want to do that?`) == true) {
-      const res = await ContentService.deleteContent(contentId);
-      // TODO: Change this to just updating state
-      window.history.go();
+      try {
+        const res = await ContentService.deleteContent(contentId);
+        // TODO: Change this to just updating state
+        window.history.go();
+      } catch (error) {
+        this.addNotification({ content: "Failed." });
+      }
     } else {
       // TODO
     }
