@@ -13,12 +13,6 @@ import { Prop } from "vue-property-decorator";
 export default class Notification extends Vue {
   @Prop() type: string;
   @Prop() content: string;
-
-  created() {
-    setTimeout(() => {
-      console.log("5 secs");
-    }, 5 * 1000);
-  }
 }
 </script>
 

@@ -10,15 +10,23 @@ export default new Vuex.Store({
     // createPersistedState()
   ],
   state: {
-    notifications: [
-      { type: 'success', content: 'Success content' },
-      { type: 'error', content: 'Error content' }
-    ]
+    notifications: []
   },
   mutations: {
-
+    createNotification(state: any, notification: any) {
+      state.notifications = [...state.notifications, notification]
+    },
+    removeNotification(state: any) {
+      state.notifications.pop();
+    }
   },
   actions: {
+    createNotification({ commit }, notification: any) {
+      commit('createNotification', notification);
 
+      setTimeout(() => {
+        commit('removeNotification', notification);
+      }, 5 * 1000);
+    },
   }
 });
