@@ -2,6 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 // import createPersistedState from 'vuex-persistedstate';
 
+// Models
+import { Notification } from "../models/Notification";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,7 +16,7 @@ export default new Vuex.Store({
     notifications: []
   },
   mutations: {
-    createNotification(state: any, notification: any) {
+    createNotification(state: any, notification: Notification) {
       state.notifications = [...state.notifications, notification]
     },
     removeNotification(state: any) {
@@ -21,7 +24,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createNotification({ commit }, notification: any) {
+    createNotification({ commit }, notification: Notification) {
       commit('createNotification', notification);
 
       setTimeout(() => {

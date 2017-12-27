@@ -1,6 +1,10 @@
 <template>
   <div v-if="notifications" class="notifications">
-    <notification v-for="(notification, index) in notifications" :key="index" :type="notification.type" :content="notification.content"></notification>
+    <transition-group name="notification">
+      <v-toolbar v-for="(notification, index) in notifications" :key="index" color="indigo" dark :class="`notification notification--${notification.type}`">
+        <v-toolbar-title>{{ notification.content }}</v-toolbar-title>
+      </v-toolbar>
+    </transition-group>
   </div>
 </template>
 
@@ -9,20 +13,12 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { State } from "vuex-class";
 
-// Components
-import Notification from "./Notification.vue";
+// Models
+import { Notification } from "../models/Notification";
 
-@Component({
-  components: {
-    Notification
-  }
-})
+@Component({})
 export default class Notifications extends Vue {
-  @State notifications: any[];
-
-  components = {
-    Notification
-  };
+  @State notifications: Notification[];
 }
 </script>
 
@@ -34,5 +30,16 @@ export default class Notifications extends Vue {
   width: 100%;
   max-height: 143px;
   overflow: auto;
+}
+
+.notification-enter-active,
+.notification-leave-active {
+  transition: all 1s;
+}
+
+.notification-enter,
+.notification-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 </style>
