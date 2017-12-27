@@ -10,7 +10,10 @@ export default new Vuex.Store({
     // createPersistedState()
   ],
   state: {
-    notifications: []
+    notifications: [
+      { type: 'success', content: 'Success content' },
+      { type: 'error', content: 'Error content' }
+    ]
   },
   mutations: {
 
