@@ -1,20 +1,20 @@
 <template>
-  <form class="add-article" @submit="handleSubmit">
-    <h3>Add an article</h3>
+  <form class="add-content" @submit="handleSubmit">
+    <h3>Add an content</h3>
     <v-text-field
-      v-model="newArticle.title"
+      v-model="newContent.title"
       label="Title"
       required>
     </v-text-field>
 
     <v-select
-      v-model="newArticle.author"
+      v-model="newContent.author"
       label="Author"
       required>
     </v-select>
 
     <v-text-field
-      v-model="newArticle.body"
+      v-model="newContent.body"
       label="Body"
       required
       multi-line>
@@ -34,17 +34,17 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 // Services
-import ArticleService from "../services/ArticleService";
+import ContentService from "../services/ContentService";
 
 // Models
-import { Article } from "../models/Article";
+import { Content } from "../models/Content";
 
 @Component({})
-export default class AddArticleForm extends Vue {
-  newArticle: Article;
+export default class AddContentForm extends Vue {
+  newContent: Content;
   constructor() {
     super();
-    this.newArticle = {
+    this.newContent = {
       title: "",
       author: 1,
       body: ""
@@ -53,12 +53,12 @@ export default class AddArticleForm extends Vue {
 
   async handleSubmit() {
     try {
-      const newArticle: Article = {
-        title: this.newArticle.title,
+      const newContent: Content = {
+        title: this.newContent.title,
         author: 1,
-        body: this.newArticle.body
+        body: this.newContent.body
       };
-      await ArticleService.addArticle(newArticle);
+      await ContentService.addContent(newContent);
       this.$router.push("/");
     } catch (error) {
       console.log(error);

@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-	const Article = sequelize.define('Article', {
+	const Content = sequelize.define('Content', {
 		title: DataTypes.STRING,
 		author: DataTypes.STRING,
 		body: DataTypes.TEXT,
 	})
 
-	Article.associate = function (models) { }
+	Content.associate = function (models) { }
 
-	return Article
+	return Content
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="single-article">
+  <div class="single-content">
     single
   </div>
 </template>
@@ -9,14 +9,14 @@ import Vue from "vue";
 import Component from "vue-class-component";
 
 // Services
-import ArticleService from "../services/ArticleService";
+import ContentService from "../services/ContentService";
 
 // Models
-import { Article } from "../models/Article";
+import { Content } from "../models/Content";
 
 @Component({})
-export default class SingleArticle extends Vue {
-  article: Article;
+export default class SingleContent extends Vue {
+  content: Content;
   isLoading: boolean;
 
   // constructor() {
@@ -24,11 +24,11 @@ export default class SingleArticle extends Vue {
   // }
 
   async created() {
-    const articleId = parseInt(this.$route.params.id);
+    const contentId = parseInt(this.$route.params.id);
     this.isLoading = true;
     try {
-      this.article = await ArticleService.getArticles({
-        ids: [articleId]
+      this.content = await ContentService.getContents({
+        ids: [contentId]
       });
     } catch (error) {
       console.log(error);

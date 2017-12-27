@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ArticlesList from '@/components/ArticlesList.vue';
-import AddArticleForm from '@/components/AddArticleForm.vue';
-import SingleArticle from '@/components/SingleArticle.vue';
+import ContentsList from '@/components/ContentsList.vue';
+import AddContentForm from '@/components/AddContentForm.vue';
+import SingleContent from '@/components/SingleContent.vue';
 
 Vue.use(Router)
 
@@ -10,23 +10,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/articles'
+      redirect: '/contents'
     },
     {
-      path: '/articles',
-      name: 'ArticlesList',
-      component: ArticlesList,
-      meta: { title: 'Articles' }
+      path: '/contents',
+      name: 'ContentsList',
+      component: ContentsList,
+      meta: { title: 'Contents' }
     },
     {
-      path: '/articles/add',
-      name: 'AddArticleForm',
-      component: AddArticleForm
+      path: '/contents/add',
+      name: 'AddContentForm',
+      component: AddContentForm
     },
     {
-      path: '/articles/:id',
-      name: 'SingleArticle',
-      component: SingleArticle
+      path: '/contents/:id',
+      name: 'SingleContent',
+      component: SingleContent
     }
   ]
 })

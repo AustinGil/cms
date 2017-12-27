@@ -1,4 +1,4 @@
-CREATE TABLE articles (
+CREATE TABLE contents (
   id     INT PRIMARY KEY AUTO_INCREMENT,
   author VARCHAR(100) NOT NULL,
   title  VARCHAR(100) NOT NULL,

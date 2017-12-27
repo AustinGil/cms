@@ -1,25 +1,25 @@
-const { Article } = require('../models')
+const { Content } = require('../models')
 
 module.exports = {
-	async addArticles(req, res) {
+	async addContents(req, res) {
 		try {
-			const article = await Article.create(req.body);
-			res.send(article);
+			const content = await Content.create(req.body);
+			res.send(content);
 		}
 		catch (err) {
 			console.log(err);
 			res.status(500).send({
-				error: 'An error has occured trying to create the article'
+				error: 'An error has occured trying to create the content'
 			});
 		}
 	},
 
-	async getArticles(req, res) {
+	async getContents(req, res) {
 		try {
-			let articles = null;
+			let contents = null;
 			const search = req.query.search;
 			// if (search) {
-			// 	articles = await Song.findAll({
+			// 	contents = await Song.findAll({
 			// 		where: {
 			// 			$or: [
 			// 				'title', 'artist', 'album', 'genre'
@@ -32,38 +32,38 @@ module.exports = {
 			// 		}
 			// 	})
 			// } else {
-			articles = await Article.findAll({
+			contents = await Content.findAll({
 				limit: 10
 			});
 			// }
-			res.send(articles);
+			res.send(contents);
 		}
 		catch (err) {
 			console.log(err);
 			res.status(500).send({
-				error: 'An error has occured trying to get the articles'
+				error: 'An error has occured trying to get the contents'
 			});
 		}
 	},
 
-	async getArticle(req, res) {
+	async getContent(req, res) {
 		try {
-			const article = await Article.findById(req.params.id);
-			res.send(article);
+			const content = await Content.findById(req.params.id);
+			res.send(content);
 		}
 		catch (err) {
 			console.log(err);
 			res.status(500).send({
-				error: 'An error has occured trying to get the article'
+				error: 'An error has occured trying to get the content'
 			});
 		}
 	},
 
-	async editArticle(req, res) {
+	async editContent(req, res) {
 		// try {
-		// 	await Article.update(req.body, {
+		// 	await Content.update(req.body, {
 		// 		where: {
-		// 			id: req.params.articleId
+		// 			id: req.params.contentId
 		// 		}
 		// 	});
 		// 	res.send(req.body);
@@ -71,25 +71,25 @@ module.exports = {
 		// catch (err) {
 		// 	console.log(err);
 		// 	res.status(500).send({
-		// 		error: 'An error has occured trying to update the article'
+		// 		error: 'An error has occured trying to update the content'
 		// 	});
 		// }
 	},
 
-	async deleteArticles(req, res) {
+	async deleteContents(req, res) {
 		try {
 			const { id } = req.params;
-			const article = await Article.findOne({
+			const content = await Content.findOne({
 				where: {
 					id,
 				}
 			});
-			article.destroy();
+			content.destroy();
 			res.send(id);
 		} catch (err) {
 			console.log(err)
 			res.status(500).send({
-				error: 'An error has occured trying to remove the article'
+				error: 'An error has occured trying to remove the content'
 			})
 		}
 	}

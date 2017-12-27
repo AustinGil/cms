@@ -1,8 +1,8 @@
 // Models
 import { ApiOptions } from '../models/ApiOptions';
-import { Article } from '../models/Article';
+import { Content } from '../models/Content';
 
-let url = 'http://localhost:3001/api/v1/articles';
+let url = 'http://localhost:3001/api/v1/contents';
 
 const headers = new Headers({
   'Accept': 'application/json, text/plain, */*',
@@ -10,7 +10,7 @@ const headers = new Headers({
 });
 
 export default {
-  getArticles(options: ApiOptions) {
+  getContents(options: ApiOptions) {
     // url = 'https://jsonplaceholder.typicode.com/posts';
     // url = 'https://httpstat.us/500'; // Server error
     let reqParams = {
@@ -28,12 +28,12 @@ export default {
     });
   },
 
-  addArticle(article: Article) {
+  addContent(content: Content) {
     // TODO: Add backend validation
     const reqParams = {
       method: 'POST',
       headers,
-      body: JSON.stringify(article)
+      body: JSON.stringify(content)
     }
     return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
@@ -46,9 +46,9 @@ export default {
     });
   },
 
-  deleteArticle(articleId: number) {
+  deleteContent(contentId: number) {
 
-    const request = new Request(`${url}/${articleId}`, {
+    const request = new Request(`${url}/${contentId}`, {
       method: 'DELETE'
     });
 
