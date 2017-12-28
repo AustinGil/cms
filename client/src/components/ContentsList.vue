@@ -45,7 +45,6 @@ export default class ContentsList extends Vue {
     { text: "Created", align: "left", value: "createdAt" },
     { text: "Last Updated", align: "left", value: "updatedAt" }
   ];
-  // contents: Content[] = [];
   isLoading: boolean = false;
 
   @State contents: Content[];
