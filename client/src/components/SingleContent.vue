@@ -19,10 +19,6 @@ export default class SingleContent extends Vue {
   content: Content;
   isLoading: boolean;
 
-  // constructor() {
-  //   super();
-  // }
-
   async created() {
     const contentId = parseInt(this.$route.params.id);
     this.isLoading = true;
@@ -30,6 +26,7 @@ export default class SingleContent extends Vue {
       this.content = await ContentService.getContents({
         ids: [contentId]
       });
+      console.log(this.content);
     } catch (error) {
       console.log(error);
     }

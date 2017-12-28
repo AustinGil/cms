@@ -54,7 +54,6 @@ export default class ContentsList extends Vue {
     this.isLoading = true;
     try {
       this.contents = await ContentService.getContents({});
-      console.log(this.contents);
     } catch (error) {
       console.log(error);
     }
