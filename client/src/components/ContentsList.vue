@@ -30,7 +30,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { Action } from "vuex-class";
+import { State, Action } from "vuex-class";
 
 // Services
 import ContentService from "../services/ContentService";
@@ -45,15 +45,20 @@ export default class ContentsList extends Vue {
     { text: "Created", align: "left", value: "createdAt" },
     { text: "Last Updated", align: "left", value: "updatedAt" }
   ];
-  contents: Content[] = [];
+  // contents: Content[] = [];
   isLoading: boolean = false;
 
+  @State contents: Content[];
+
+  @Action addContents: any;
   @Action addNotification: any;
 
   async created() {
     this.isLoading = true;
     try {
-      this.contents = await ContentService.getContents({});
+      const options = {};
+      const contents = await ContentService.getContents(options);
+      this.addContents(contents);
     } catch (error) {
       console.log(error);
     }
