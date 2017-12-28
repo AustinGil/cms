@@ -1,6 +1,6 @@
 <template>
   <form class="add-content" @submit.prevent="handleSubmit">
-    <h3>Add an content</h3>
+    <h3>Add content</h3>
     <v-text-field
       v-model="newContent.title"
       label="Title"
