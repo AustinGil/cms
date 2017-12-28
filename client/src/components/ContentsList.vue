@@ -17,7 +17,8 @@
             <router-link :to="`contents/${props.item.id}`">{{ props.item.title }}</router-link>
             <button @click="deleteContent(props.item.id)">X</button>
           </td>
-          <!-- <td class="text-xs-right">{{ props.item.calories }}</td> -->
+          <td>{{ new Date(props.item.createdAt).toDateString() }}</td>
+          <td>{{ new Date(props.item.updatedAt).toDateString() }}</td>
         </template>
       </v-data-table>
 
@@ -40,13 +41,9 @@ import { Content } from "../models/Content";
 @Component({})
 export default class ContentsList extends Vue {
   headers: any[] = [
-    {
-      text: "Title",
-      align: "left",
-      // sortable: false;
-      value: "title"
-    }
-    // { text: "Calories"; value: "calories" }
+    { text: "Title", align: "left", value: "title" },
+    { text: "Created", align: "left", value: "createdAt" },
+    { text: "Last Updated", align: "left", value: "updatedAt" }
   ];
   contents: Content[] = [];
   isLoading: boolean = false;
@@ -57,6 +54,7 @@ export default class ContentsList extends Vue {
     this.isLoading = true;
     try {
       this.contents = await ContentService.getContents({});
+      console.log(this.contents);
     } catch (error) {
       console.log(error);
     }
