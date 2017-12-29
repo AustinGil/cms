@@ -10,13 +10,21 @@ const headers = new Headers({
 });
 
 export default {
-  getContents(options: ApiOptions) {
+  getContents(options: any) {
+    if (options) {
+      url += '?';
+      Object.keys(options).forEach((key: any) => {
+        url += `${key}=${options[key]}&`;
+      });
+    }
+
     // url = 'https://jsonplaceholder.typicode.com/posts';
     // url = 'https://httpstat.us/500'; // Server error
-    let reqParams = {
+    const reqParams = {
       method: 'GET',
-      // headers
+      // headers,
     };
+
     return fetch(url, reqParams).then((response: any) => {
       switch (response.status) {
         case 500:

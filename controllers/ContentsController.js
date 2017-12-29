@@ -1,4 +1,5 @@
 const { Content } = require('../models')
+// const Op = Sequelize.Op;
 
 module.exports = {
 	async addContents(req, res) {
@@ -18,6 +19,13 @@ module.exports = {
 		try {
 			let contents = null;
 			const search = req.query.search;
+			const ids = req.query.ids;
+
+			const query = {
+				limit: 10
+			};
+			const where = {};
+
 			// if (search) {
 			// 	contents = await Song.findAll({
 			// 		where: {
@@ -31,11 +39,18 @@ module.exports = {
 			// 			}))
 			// 		}
 			// 	})
-			// } else {
-			contents = await Content.findAll({
-				limit: 10
-			});
-			// }
+
+			if (ids) {
+				where.id = {
+					$or: [ids]
+				}
+			}
+
+			if (where) {
+				query.where = where;
+			}
+
+			contents = await Content.findAll(query);
 			res.send(contents);
 		}
 		catch (err) {
