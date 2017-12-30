@@ -1,7 +1,15 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer fixed v-model="drawer" app>
+    <!-- <v-navigation-drawer permanent fixed :mini-variant.sync="hideMenu" app> -->
+    <!-- <v-navigation-drawer fixed v-model="drawer" :mini-variant.sync="hideMenu" app> -->
+    <v-navigation-drawer fixed v-model="drawer" app width="200" temporary>
       <v-list dense>
+        <!-- <v-list-tile>
+          <v-list-tile-action>
+            <v-icon @click="toggleMenu">menu</v-icon>
+          </v-list-tile-action>
+        </v-list-tile> -->
+
         <router-link to="/" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>home</v-icon>
@@ -10,12 +18,22 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
+
         <router-link to="/contents/add" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>add</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Add Content</v-list-tile-title>
+          </v-list-tile-content>
+        </router-link>
+
+        <router-link to="/media" tag="v-list-tile">
+          <v-list-tile-action>
+            <v-icon>perm_media</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Media</v-list-tile-title>
           </v-list-tile-content>
         </router-link>
       </v-list>
@@ -51,11 +69,12 @@ import Notifications from "./components/Notifications.vue";
   }
 })
 export default class App extends Vue {
-  drawer: null;
+  hideMenu: boolean = true;
+  drawer: boolean = false;
 
-  constructor() {
-    super();
-    this.drawer = null;
+  toggleMenu() {
+    // TODO: Why doesn't this work...?
+    this.hideMenu = !this.hideMenu;
   }
 }
 </script>
