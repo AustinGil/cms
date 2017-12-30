@@ -4,7 +4,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
+// Models
 const { sequelize } = require('./models');
+
+// Middleware
+const uploadsMiddleware = require('./middleware/uploads');
+
+// Controllers
 const ContentsController = require('./controllers/ContentsController');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -21,9 +27,12 @@ const CLIENT_PATH = path.join(__dirname + '/client');
 app.get('/', (req, res) => {
 	res.sendFile(path.join(CLIENT_PATH + '/index.html'));
 });
-
 app.get('/api/v1/contents', ContentsController.getContents);
-app.post('/api/v1/contents', ContentsController.addContents);
+app.post('/api/v1/contents',
+	// uploadsMiddleware.upload,
+	// uploadsMiddleware.resize,
+	ContentsController.addContents
+);
 app.get('/api/v1/content/:id', ContentsController.getContent);
 app.delete('/api/v1/contents/:id', ContentsController.deleteContents);
 
@@ -31,6 +40,6 @@ const port = process.env.PORT || 3000;
 
 sequelize.sync({ force: false })
 	.then(() => {
-		app.listen(port)
-		console.log(`Server started on port ${port}`)
+		app.listen(port);
+		console.log(`Server started on port ${port}`);
 	});

@@ -1,4 +1,4 @@
-const { Content } = require('../models')
+const { Content } = require('../models');
 // const Op = Sequelize.Op;
 
 module.exports = {

@@ -14,6 +14,11 @@
     </v-select>
 
     <v-text-field
+      v-model="newContent.image"
+      label="Image URL">
+    </v-text-field>
+
+    <v-text-field
       v-model="newContent.body"
       label="Body"
       required
@@ -39,28 +44,25 @@ import { Content } from "../models/Content";
 
 @Component({})
 export default class AddContentForm extends Vue {
-  newContent: Content;
-  constructor() {
-    super();
-    this.newContent = {
-      title: "",
-      author: 1,
-      body: ""
-    };
-  }
+  newContent: Content = {
+    title: "",
+    author: 1,
+    image: "",
+    body: ""
+  };
 
   @Action addNotification: any;
 
+  openMediaLibrary() {
+    // TODO
+    console.log("Open library");
+  }
+
   async handleSubmit() {
     try {
-      const newContent: Content = {
-        title: this.newContent.title,
-        author: 1,
-        body: this.newContent.body
-      };
-      await ContentService.addContent(newContent);
+      await ContentService.addContent(this.newContent);
       this.addNotification({
-        content: `"${newContent.title}" successfully created!`,
+        content: `"${this.newContent.title}" successfully created!`,
         type: "success"
       });
       this.$router.push("/");
