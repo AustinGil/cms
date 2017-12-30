@@ -1,4 +1,4 @@
-# Heading A Full-stack JavaScript CMS
+# A full-stack JavaScript CMS
 
 ### Front End
  - Vue
