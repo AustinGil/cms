@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const app = express();
+const formidable = require("express-formidable");
 
 // Models
 const { sequelize } = require('./models');
@@ -18,10 +18,13 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').load();
 }
 
+const app = express();
+
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
+app.use(formidable()); // allow express to handle multipart/form-data requests
 
 const CLIENT_PATH = path.join(__dirname + '/client');
 

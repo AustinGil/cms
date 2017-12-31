@@ -1,22 +1,14 @@
-const formidable = require('formidable');
-
 const { Media } = require('../models');
 
 module.exports = {
 	async addMedia(req, res) {
-
-		var form = new formidable.IncomingForm();
-		form.parse(req, (err, fields, files) => {
-			console.log(fields)
-			// res.send('NOT IMPLEMENTED: pollsController createPost');
-		});
-
-
 		try {
-			// await console.log(req.body);
-			res.send(req.body)
-			// const media = await Media.create(req.body);
-			// res.send(media);
+			const { name, description } = req.fields;
+			const media = await Media.create({
+				name,
+				description
+			});
+			res.send(media);
 		}
 		catch (err) {
 			console.log(err);

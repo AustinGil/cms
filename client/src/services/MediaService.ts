@@ -28,21 +28,14 @@ export default {
   },
 
   addMedia(content: any) {
-    const headers = new Headers({
-      'Content-Type': 'multipart/form-data'
-    });
-
     let formData: any = new FormData();
 
     Object.keys(content).forEach((key: any) => {
       formData.append(key, content[key]);
     });
 
-    console.log(formData.entries());
-
     const reqParams = {
       method: 'POST',
-      headers,
       body: formData
     }
     return fetch(url, reqParams).then((response: any) => {
