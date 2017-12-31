@@ -1,4 +1,4 @@
-# A full-stack JavaScript CMS
+# A Content Management System with a modern stack
 
 ### Front End
  - Vue

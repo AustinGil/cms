@@ -90,6 +90,10 @@ form {
   width: 100%;
 }
 
+label {
+  display: block;
+}
+
 .list-inline {
   list-style-type: none;
 

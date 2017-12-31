@@ -1,6 +1,6 @@
 // Models
 
-let url = 'http://localhost:3001/api/v1/uploads';
+let url = 'http://localhost:3001/api/v1/media';
 
 export default {
   getMedias(options: any) {
@@ -28,21 +28,33 @@ export default {
   },
 
   addMedia(content: any) {
-    console.log('adding media')
-    // TODO: Add backend validation
-    // const reqParams = {
-    //   method: 'POST',
-    //   body: JSON.stringify(content)
-    // }
-    // return fetch(url, reqParams).then((response: any) => {
-    //   switch (response.status) {
-    //     case 500:
-    //       throw new Error("Oops, the server broke...");
+    const headers = new Headers({
+      'Content-Type': 'multipart/form-data'
+    });
 
-    //     default:
-    //       return response.json();
-    //   }
-    // });
+    let formData: any = new FormData();
+
+    Object.keys(content).forEach((key: any) => {
+      formData.append(key, content[key]);
+    });
+
+    console.log(formData.entries());
+
+    const reqParams = {
+      method: 'POST',
+      headers,
+      body: formData
+    }
+    return fetch(url, reqParams).then((response: any) => {
+      console.log(response);
+      // switch (response.status) {
+      //   case 500:
+      //     throw new Error("Oops, the server broke...");
+
+      //   default:
+      //     return response.json();
+      // }
+    });
   },
 
   deleteMedia(id: number) {
