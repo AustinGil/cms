@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const formidable = require("express-formidable");
 
 // Models
 const { sequelize } = require('./models');
@@ -24,7 +23,7 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
-app.use(formidable()); // allow express to handle multipart/form-data requests
+// app.use(formidable()); // allow express to handle multipart/form-data requests
 
 const CLIENT_PATH = path.join(__dirname + '/client');
 
@@ -42,9 +41,14 @@ app.post('/api/v1/contents',
 app.delete('/api/v1/contents/:id', ContentsController.deleteContents);
 
 // Media
+
+
+// app.post('/api/v1/media', , (req, res) => {
+// 	return res.json('success');
+// });
 // app.get('/api/v1/media', ContentsController.getContents);
 app.post('/api/v1/media',
-	// uploadsMiddleware.upload,
+	uploadsMiddleware.upload,
 	// uploadsMiddleware.resize,
 	MediaController.addMedia
 );
