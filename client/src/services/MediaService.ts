@@ -1,4 +1,5 @@
 // Models
+// import { File } from '../models/File';
 
 let url = 'http://localhost:3001/api/v1/media';
 
@@ -27,26 +28,28 @@ export default {
     // });
   },
 
-  addMedia(content: any) {
-    let formData: any = new FormData();
-
-    Object.keys(content).forEach((key: any) => {
-      formData.append(key, content[key]);
-    });
+  addMedia(file: any, metaData?: any) {
+    // Create a multipart form and add the data.
+    const data = new FormData();
+    data.append("file", file);
+    if (metaData) {
+      Object.keys(metaData).forEach((key: any) => {
+        data.append(key, metaData[key]);
+      });
+    }
 
     const reqParams = {
       method: 'POST',
-      body: formData
+      body: data
     }
     return fetch(url, reqParams).then((response: any) => {
-      console.log(response);
-      // switch (response.status) {
-      //   case 500:
-      //     throw new Error("Oops, the server broke...");
+      switch (response.status) {
+        case 500:
+          throw new Error("Oops, the server broke...");
 
-      //   default:
-      //     return response.json();
-      // }
+        default:
+          return response.json();
+      }
     });
   },
 

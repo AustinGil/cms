@@ -3,16 +3,16 @@ const { Media } = require('../models');
 module.exports = {
 	async addMedia(req, res) {
 		try {
-			console.log(req.body)
-			console.log(req.files)
-			// const { file } = req.files;
-			// const { name, description } = req.fields;
-			// const media = await Media.create({
-			// 	name,
-			// 	description
-			// });
-			// res.send(media);
-			res.send('got this far');
+			const file = req.files[0];
+
+			const media = await Media.create({
+				name: req.body.name || file.originalname,
+				url: file.path,
+				description: req.body.description || '',
+				mimetype: file.mimetype
+			});
+
+			res.send(media);
 		}
 		catch (err) {
 			console.log(err);

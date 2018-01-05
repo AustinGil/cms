@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
 		name: DataTypes.STRING,
 		url: DataTypes.STRING,
 		description: DataTypes.TEXT,
+		mimetype: DataTypes.STRING,
 	})
 
 	Media.associate = function (models) { }

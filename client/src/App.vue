@@ -86,6 +86,11 @@ export default class App extends Vue {
   -moz-osx-font-smoothing: grayscale;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 form {
   width: 100%;
 }
