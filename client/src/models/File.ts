@@ -1,5 +1,5 @@
-export interface File {
-  name?: string,
-  url: string,
-  description?: string
-}
+// export interface File {
+//   name?: string,
+//   url: string,
+//   description?: string
+// }

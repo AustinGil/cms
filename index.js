@@ -23,6 +23,8 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
+app.use('/uploads', express.static(__dirname + "/uploads"));
+// app.use(express.static(path.join(__dirname, 'uploads')));
 
 const CLIENT_PATH = path.join(__dirname + '/client');
 
@@ -40,7 +42,7 @@ app.post('/api/v1/contents',
 app.delete('/api/v1/contents/:id', ContentsController.deleteContents);
 
 // Media
-// app.get('/api/v1/media', ContentsController.getContents);
+app.get('/api/v1/media', MediaController.getMedia);
 app.post('/api/v1/media',
 	uploadsMiddleware.upload,
 	// uploadsMiddleware.resize,

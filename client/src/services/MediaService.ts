@@ -4,7 +4,7 @@
 let url = 'http://localhost:3001/api/v1/media';
 
 export default {
-  getMedias(options: any) {
+  getMedia(options?: any) {
     console.log('getting media')
     // if (options) {
     //   url += '?';
@@ -13,19 +13,15 @@ export default {
     //   });
     // }
 
-    // const reqParams = {
-    //   method: 'GET',
-    // };
+    return fetch(url).then((response: any) => {
+      switch (response.status) {
+        case 500:
+          throw new Error("Oops, the server broke...");
 
-    // return fetch(url, reqParams).then((response: any) => {
-    //   switch (response.status) {
-    //     case 500:
-    //       throw new Error("Oops, the server broke...");
-
-    //     default:
-    //       return response.json();
-    //   }
-    // });
+        default:
+          return response.json();
+      }
+    });
   },
 
   addMedia(file: any, metaData?: any) {

@@ -8,7 +8,7 @@
     <div v-else>
       <v-data-table
         v-if="contents"
-        :headers="headers"
+        :headers="tableHeaders"
         :items="contents"
       class="elevation-1"
       >
@@ -40,7 +40,7 @@ import { Content } from "../models/Content";
 
 @Component({})
 export default class ContentsList extends Vue {
-  headers: any[] = [
+  tableHeaders: any[] = [
     { text: "Title", align: "left", value: "title" },
     { text: "Created", align: "left", value: "createdAt" },
     { text: "Last Updated", align: "left", value: "updatedAt" }

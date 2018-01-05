@@ -23,50 +23,49 @@ module.exports = {
 	},
 
 	async getMedia(req, res) {
-		console.log('TODO: add media...')
-		// try {
-		// 	let media = null;
-		// 	const search = req.query.search;
-		// 	const ids = req.query.ids;
+		try {
+			let media = null;
+			// const search = req.query.search;
+			// const ids = req.query.ids;
 
-		// 	const query = {
-		// 		limit: 10
-		// 	};
-		// 	const where = {};
+			const query = {
+				limit: 10
+			};
+			const where = {};
 
-		// 	// if (search) {
-		// 	// 	media = await Song.findAll({
-		// 	// 		where: {
-		// 	// 			$or: [
-		// 	// 				'title', 'artist', 'album', 'genre'
-		// 	// 			].map(key => ({
-		// 	// 				[key]: {
-		// 	// 					$like: `%${search}%`,
+			// 	// if (search) {
+			// 	// 	media = await Song.findAll({
+			// 	// 		where: {
+			// 	// 			$or: [
+			// 	// 				'title', 'artist', 'album', 'genre'
+			// 	// 			].map(key => ({
+			// 	// 				[key]: {
+			// 	// 					$like: `%${search}%`,
 
-		// 	// 				}
-		// 	// 			}))
-		// 	// 		}
-		// 	// 	})
+			// 	// 				}
+			// 	// 			}))
+			// 	// 		}
+			// 	// 	})
 
-		// 	if (ids) {
-		// 		where.id = {
-		// 			$or: [ids]
-		// 		}
-		// 	}
+			// 	if (ids) {
+			// 		where.id = {
+			// 			$or: [ids]
+			// 		}
+			// 	}
 
-		// 	if (where) {
-		// 		query.where = where;
-		// 	}
+			// 	if (where) {
+			// 		query.where = where;
+			// 	}
 
-		// 	media = await Media.findAll(query);
-		// 	res.send(media);
-		// }
-		// catch (err) {
-		// 	console.log(err);
-		// 	res.status(500).send({
-		// 		error: 'An error has occured trying to get the media'
-		// 	});
-		// }
+			media = await Media.findAll(query);
+			res.send(media);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(500).send({
+				error: 'An error has occured trying to get the media'
+			});
+		}
 	},
 
 	async editMedia(req, res) {

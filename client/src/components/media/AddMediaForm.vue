@@ -1,7 +1,7 @@
 <template>
   <form class="add-media" @submit.prevent="handleSubmit($event)" enctype="multipart/form-data">
 
-    <p>https://static.pexels.com/photos/748920/pexels-photo-748920.jpeg</p>
+    <!-- <p>https://static.pexels.com/photos/748920/pexels-photo-748920.jpeg</p> -->
 
     <v-text-field
       v-model="metaData.name"
