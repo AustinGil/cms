@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="media-page">
     <h1>Media</h1>
     <ul class="list-inline">
       <li>

@@ -1,11 +1,11 @@
 <template>
   <div class="media-library">
-    <div v-if="media.length" class="media-list">
+    <v-card v-if="media.length" class="media-list">
       <div v-for="file in media" :key="file.id" class="media">
-        <img src="" alt="">
-        {{ file.url }}
+        <!-- TODO: Fix img url. Currently using Docker's port -->
+        <img :src="`http://localhost:3001/${file.url}`" :alt="file.description">
       </div>
-    </div>
+    </v-card>
     <p v-else>No media yet. Why don't you <router-link to="/media/add">add some?</router-link></p>
   </div>
 </template>
@@ -41,6 +41,33 @@ export default class MediaList extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
+.media-list {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+  // grid-auto-rows: minmax(auto, 150px);
+  padding: 1rem;
+}
 
+.media {
+  position: relative;
+  border: 1px solid rgba(#000, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 100%;
+  }
+
+  > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
 </style>

@@ -23,8 +23,9 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
-app.use('/uploads', express.static(__dirname + "/uploads"));
-// app.use(express.static(path.join(__dirname, 'uploads')));
+
+// Serving files from the upload folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const CLIENT_PATH = path.join(__dirname + '/client');
 

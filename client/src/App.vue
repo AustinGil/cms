@@ -44,10 +44,10 @@
       <v-toolbar-title>Application</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout>
+      <v-container>
+        <v-flex xs12>
           <router-view pageTitle=""></router-view>
-        </v-layout>
+        </v-flex>
       </v-container>
     </v-content>
     <v-footer color="indigo" app>
