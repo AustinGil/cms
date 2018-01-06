@@ -9,7 +9,9 @@
         <router-link to="/media/add">Add Media</router-link>
       </li>
     </ul>
-    <router-view></router-view>
+    <v-card>
+      <router-view></router-view>
+    </v-card>
   </div>
 </template>
 
@@ -22,5 +24,7 @@ export default class Media extends Vue {}
 </script>
 
 <style>
-
+.card {
+  padding: 1rem;
+}
 </style>
