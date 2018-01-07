@@ -6,11 +6,11 @@
         <router-link to="/media">Media List</router-link>
       </li>
       <li>
-        <router-link to="/media/add">Add Media</router-link>
+        <router-link :to="{ name: 'mediaForm' }">Add Media</router-link>
       </li>
     </ul>
     <v-card>
-      <router-view></router-view>
+      <router-view @upload="handleUpload($event)"></router-view>
     </v-card>
   </div>
 </template>
@@ -18,9 +18,20 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Action } from "vuex-class";
 
 @Component({})
-export default class Media extends Vue {}
+export default class Media extends Vue {
+  @Action addNotification: any;
+
+  handleUpload(upload: any) {
+    this.addNotification({
+      content: `"${upload.name}" successfully added!`,
+      type: "success"
+    });
+    this.$router.push({ path: "/media" });
+  }
+}
 </script>
 
 <style>

@@ -1,32 +1,35 @@
 <template>
-  <form class="add-media" @submit.prevent="handleSubmit($event)" enctype="multipart/form-data">
+  <div class="add-media">
+    <v-progress-circular v-if="isLoading" indeterminate v-bind:size="70" color="primary"></v-progress-circular>
+    <form v-else @submit.prevent="handleSubmit($event)" enctype="multipart/form-data">
 
-    <!-- <p>https://static.pexels.com/photos/748920/pexels-photo-748920.jpeg</p> -->
+      <!-- <p>https://static.pexels.com/photos/748920/pexels-photo-748920.jpeg</p> -->
 
-    <v-text-field
-      v-model="metaData.name"
-      label="Name">
-    </v-text-field>
+      <v-text-field
+        v-model="metaData.name"
+        label="Name">
+      </v-text-field>
 
-    <label>File<br>
-      <div class="preview">
-        <img :src="imagePreview" />
-      </div>
+      <label>File<br>
+        <div class="preview">
+          <img :src="imagePreview" />
+        </div>
 
-      <!-- TODO: -->
-      <input @change="onFileChange($event)" type="file" name="file" accept="image/jpeg, image/png, image/gif, image/svg+xml">
-    </label>
+        <!-- TODO: -->
+        <input @change="onFileChange($event)" type="file" name="file" accept="image/jpeg, image/png, image/gif, image/svg+xml">
+      </label>
 
-    <button @click.prevent="removeImage">Remove image</button>
+      <button @click.prevent="removeImage">Remove image</button>
 
-    <v-text-field
-      v-model="metaData.description"
-      label="Description"
-      multi-line>
-    </v-text-field>
+      <v-text-field
+        v-model="metaData.description"
+        label="Description"
+        multi-line>
+      </v-text-field>
 
-    <button type="submit">Upload</button>
-  </form>
+      <button type="submit">Upload</button>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,8 +54,17 @@ export default class AddMediaForm extends Vue {
     name: "",
     description: ""
   };
+  isLoading: boolean = false;
 
   @Action addNotification: any;
+
+  created() {
+    const editId = this.$route.query && this.$route.query.id;
+    if (editId) {
+      // TODO
+      console.log("Need to load media...");
+    }
+  }
 
   onFileChange(event: any) {
     const files = event.target.files;
@@ -78,7 +90,7 @@ export default class AddMediaForm extends Vue {
     if (this.file) {
       try {
         const newFile = await MediaService.addMedia(this.file, this.metaData);
-        console.log(newFile);
+        this.$emit("upload", newFile);
       } catch (error) {
         console.log(error);
         this.addNotification({

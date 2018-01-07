@@ -1,12 +1,12 @@
 <template>
   <div class="media-library">
     <div v-if="media.length" class="media-list">
-      <router-link v-for="file in media" :key="file.id" :to="{ path: 'media/add', query: { edit: file.id }}" class="media">
+      <router-link v-for="file in media" :key="file.id" :to="{ name: 'mediaForm', query: { id: file.id }}" class="media">
         <!-- TODO: Fix img url. Currently using Docker's port -->
         <img :src="`http://localhost:3001/${file.url}`" :alt="file.description">
       </router-link>
     </div>
-    <p v-else>No media yet. Why don't you <router-link to="/media/add">add some?</router-link></p>
+    <p v-else>No media yet. Why don't you <router-link :to="{ name: 'mediaForm' }">add some?</router-link></p>
   </div>
 </template>
 
@@ -30,7 +30,6 @@ export default class MediaList extends Vue {
     this.isLoading = true;
     try {
       const media = await MediaService.getMedia();
-      console.log(media);
       this.addMedia(media);
     } catch (error) {
       // TODO

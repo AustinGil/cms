@@ -42,7 +42,8 @@ export default new Router({
           component: MediaList
         },
         {
-          path: 'add',
+          path: 'form',
+          name: 'mediaForm',
           component: AddMediaForm
         }
       ]
