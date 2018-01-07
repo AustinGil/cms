@@ -29,7 +29,7 @@ module.exports = {
 			// const ids = req.query.ids;
 
 			const query = {
-				limit: 10
+				limit: 24
 			};
 			const where = {};
 

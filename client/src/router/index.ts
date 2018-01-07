@@ -7,6 +7,7 @@ import SingleContent from '@/components/SingleContent.vue';
 import Media from '@/components/media/Media.vue';
 import MediaList from '@/components/media/MediaList.vue';
 import AddMediaForm from '@/components/media/AddMediaForm.vue';
+import EditMediaForm from '@/components/media/EditMediaForm.vue';
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ export default new Router({
           path: 'form',
           name: 'mediaForm',
           component: AddMediaForm
+        },
+        {
+          path: 'edit',
+          name: 'editMedia',
+          component: EditMediaForm
         }
       ]
     }

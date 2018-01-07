@@ -1,7 +1,7 @@
 <template>
   <div class="media-library">
     <div v-if="media.length" class="media-list">
-      <router-link v-for="file in media" :key="file.id" :to="{ name: 'mediaForm', query: { id: file.id }}" class="media">
+      <router-link v-for="file in media" :key="file.id" :to="{ name: 'editMedia', query: { id: file.id }}" class="media">
         <!-- TODO: Fix img url. Currently using Docker's port -->
         <img :src="`http://localhost:3001/${file.url}`" :alt="file.description">
       </router-link>
@@ -20,6 +20,7 @@ import MediaService from "../../services/MediaService";
 
 @Component({})
 export default class MediaList extends Vue {
+  dialog: boolean = false;
   isLoading: boolean = false;
 
   @State media: any[];
@@ -36,6 +37,10 @@ export default class MediaList extends Vue {
       console.log(error);
     }
     this.isLoading = false;
+  }
+
+  toggleMediaForm() {
+    this.dialog = !this.dialog;
   }
 }
 </script>

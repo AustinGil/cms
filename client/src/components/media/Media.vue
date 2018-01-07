@@ -29,6 +29,8 @@ export default class Media extends Vue {
       content: `"${upload.name}" successfully added!`,
       type: "success"
     });
+    this.$emit("upload");
+    console.log(this.$route.path);
     this.$router.push({ path: "/media" });
   }
 }

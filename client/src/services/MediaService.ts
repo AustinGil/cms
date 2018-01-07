@@ -5,13 +5,12 @@ let url = 'http://localhost:3001/api/v1/media';
 
 export default {
   getMedia(options?: any) {
-    console.log('getting media')
-    // if (options) {
-    //   url += '?';
-    //   Object.keys(options).forEach((key: any) => {
-    //     url += `${key}=${options[key]}&`;
-    //   });
-    // }
+    if (options) {
+      url += '?';
+      Object.keys(options).forEach((key: any) => {
+        url += `${key}=${options[key]}&`;
+      });
+    }
 
     return fetch(url).then((response: any) => {
       switch (response.status) {
