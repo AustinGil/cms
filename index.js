@@ -51,6 +51,106 @@ app.post('/api/v1/media',
 );
 // app.delete('/api/v1/media/:id', ContentsController.deleteContents);
 
+
+
+// Beginning GraphQL
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+
+const users = [  // Dummy data
+	{
+		id: 1,
+		name: 'Brian',
+		age: '21',
+		gender: 'M'
+	},
+	{
+		id: 2,
+		name: 'Kim',
+		age: '22',
+		gender: 'M'
+	},
+	{
+		id: 3,
+		name: 'Joseph',
+		age: '23',
+		gender: 'M'
+	},
+	{
+		id: 4,
+		name: 'Faith',
+		age: '23',
+		gender: 'F'
+	},
+	{
+		id: 5,
+		name: 'Joy',
+		age: '25',
+		gender: 'F'
+	}
+];
+
+// Initialize a GraphQL schema
+const schema = buildSchema(`
+	type Query {
+		user(id: Int!): Person
+		users(gender: String): [Person]
+	},
+	type Person {
+		id: Int
+		name: String
+		age: Int
+		gender: String
+	},
+	type Mutation {
+		updateUser(id: Int!, name: String!, age: String): Person
+	}
+`);
+
+const getUser = (args) => { // return a single user based on id
+	const userID = args.id;
+	return users.filter(user => {
+		return user.id == userID;
+	})[0];
+}
+
+const retrieveUsers = (args) => { // Return a list of users. Takes an optional gender parameter
+	if (args.gender) {
+		const gender = args.gender;
+		return users.filter(user => user.gender === gender);
+	} else {
+		return users;
+	}
+}
+
+const updateUser = ({ id, name, age }) => {
+	users.map(user => {
+		if (user.id === id) {
+			user.name = name;
+			user.age = age;
+			return user;
+		}
+	});
+
+	return users.filter(user => user.id === id)[0];
+}
+
+// Root resolver
+const root = {
+	user: getUser,
+	users: retrieveUsers,
+	updateUser: updateUser
+};
+
+app.use('/graphql', graphqlHTTP({
+	schema: schema,  // Must be provided
+	rootValue: root,
+	graphiql: true,  // Enable GraphiQL when server endpoint is accessed in browser
+}));
+
+
+
+
 const port = process.env.PORT || 3000;
 
 sequelize.sync({ force: false })
