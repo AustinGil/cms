@@ -27,7 +27,7 @@ export default class MediaList extends Vue {
 
   @Action addMedia: any;
 
-  async created() {
+  async mounted() {
     this.isLoading = true;
     try {
       const media = await MediaService.getMedia();

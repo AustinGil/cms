@@ -18,15 +18,14 @@
         <input @change="onFileChange($event)" type="file" name="file" accept="image/jpeg, image/png, image/gif, image/svg+xml">
       </label>
 
-      <button @click.prevent="removeImage">Remove image</button>
-
       <v-text-field
         v-model="metaData.description"
         label="Description"
         multi-line>
       </v-text-field>
 
-      <v-btn type="submit" :disabled="file !== null">Upload</v-btn>
+      <v-btn type="submit" :disabled="!file">Upload</v-btn>
+      <!-- <v-btn type="button">Cancel</v-btn> -->
     </form>
   </div>
 </template>
@@ -39,7 +38,7 @@ import { Action } from "vuex-class";
 import placeholderImage from "./placeholder-file-upload";
 
 // Models
-// import { File } from "../../models/File";
+import { File } from "../../models/File";
 
 // Services
 import MediaService from "../../services/MediaService";
@@ -47,7 +46,7 @@ import MediaService from "../../services/MediaService";
 @Component({})
 export default class AddMediaForm extends Vue {
   imagePreview: string = placeholderImage;
-  file: null;
+  file: File | null = null;
   metaData = {
     name: "",
     description: ""

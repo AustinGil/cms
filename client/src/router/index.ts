@@ -1,8 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
+
+// Dashboard
+import Dashboard from '@/components/Dashboard.vue';
+
+// Content
 import ContentsList from '@/components/ContentsList.vue';
 import AddContentForm from '@/components/AddContentForm.vue';
 import SingleContent from '@/components/SingleContent.vue';
+
 // Media
 import Media from '@/components/media/Media.vue';
 import MediaList from '@/components/media/MediaList.vue';
@@ -16,26 +22,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/contents'
+      name: 'Dashboard',
+      component: Dashboard,
     },
     {
-      path: '/contents',
+      path: '/content',
       name: 'ContentsList',
       component: ContentsList,
       meta: { title: 'Contents' }
     },
     {
-      path: '/contents/add',
+      path: '/content/add',
       name: 'AddContentForm',
       component: AddContentForm
     },
     {
-      path: '/contents/:id',
+      path: '/content/:id',
       name: 'SingleContent',
       component: SingleContent
     },
     {
       path: '/media',
+      name: 'MediaLibrary',
       component: Media,
       children: [
         {

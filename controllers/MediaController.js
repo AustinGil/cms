@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const { Media } = require('../models');
 
 module.exports = {
@@ -26,7 +29,7 @@ module.exports = {
 		try {
 			let media = null;
 			// const search = req.query.search;
-			// const ids = req.query.ids;
+			const ids = req.query.ids;
 
 			const query = {
 				limit: 24
@@ -47,15 +50,15 @@ module.exports = {
 			// 	// 		}
 			// 	// 	})
 
-			// 	if (ids) {
-			// 		where.id = {
-			// 			$or: [ids]
-			// 		}
-			// 	}
+			if (ids) {
+				where.id = {
+					$or: ids.split(',')
+				}
+			}
 
-			// 	if (where) {
-			// 		query.where = where;
-			// 	}
+			if (where) {
+				query.where = where;
+			}
 
 			media = await Media.findAll(query);
 			res.send(media);
@@ -87,20 +90,36 @@ module.exports = {
 
 	async deleteMedia(req, res) {
 		console.log('TODO: add media...')
-		// try {
-		// 	const { id } = req.params;
-		// 	const media = await Media.findOne({
-		// 		where: {
-		// 			id,
-		// 		}
-		// 	});
-		// 	media.destroy();
-		// 	res.send(id);
-		// } catch (err) {
-		// 	console.log(err)
-		// 	res.status(500).send({
-		// 		error: 'An error has occured trying to remove the media'
-		// 	})
-		// }
+
+		try {
+			let file = null;
+			const id = req.query.id;
+
+			file = await Media.findOne({
+				where: {
+					id
+				}
+			});
+
+			if (!file) {
+				return res.status(404).send({
+					error: 'That file does not exist.'
+				});
+			}
+
+			const pathToFile = path.join(__dirname, `../${file.url}`);
+
+			// Delete the file from the system, then delete entry from database
+			await fs.unlink(pathToFile, () => {
+				file.destroy();
+			});
+			res.send(file);
+		}
+		catch (err) {
+			console.log(err);
+			res.status(500).send({
+				error: 'An error has occured trying to delete the media'
+			});
+		}
 	}
 }

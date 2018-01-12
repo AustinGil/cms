@@ -1,10 +1,11 @@
 // Models
 // import { File } from '../models/File';
 
-let url = 'http://localhost:3001/api/v1/media';
 
 export default {
   getMedia(options?: any) {
+    let url = 'http://localhost:3001/api/v1/media';
+
     if (options) {
       url += '?';
       Object.keys(options).forEach((key: any) => {
@@ -24,6 +25,8 @@ export default {
   },
 
   addMedia(file: any, metaData?: any) {
+    let url = 'http://localhost:3001/api/v1/media';
+
     // Create a multipart form and add the data.
     const data = new FormData();
     data.append("file", file);
@@ -48,21 +51,27 @@ export default {
     });
   },
 
-  deleteMedia(id: number) {
-    console.log('deleting media')
-    // const request = new Request(`${url}/${id}`, {
-    //   method: 'DELETE'
-    // });
+  deleteMedia(id?: number) {
+    let url = 'http://localhost:3001/api/v1/media';
 
-    // return fetch(request).then((response: any) => {
-    //   switch (response.status) {
-    //     case 500:
-    //       throw new Error("Oops, the server broke...");
+    if (!id) {
+      throw new Error('Missing ID parameter');
+    }
 
-    //     default:
-    //       console.log(response);
-    //       return response.json();
-    //   }
-    // });
+    url += `?id=${id}`;
+
+    const reqParams = {
+      method: 'DELETE',
+    }
+
+    return fetch(url, reqParams).then((response: any) => {
+      switch (response.status) {
+        case 500:
+          throw new Error("Oops, the server broke...");
+
+        default:
+          return response.json();
+      }
+    });
   }
 }

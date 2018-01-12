@@ -49,7 +49,7 @@ app.post('/api/v1/media',
 	// uploadsMiddleware.resize,
 	MediaController.addMedia
 );
-// app.delete('/api/v1/media/:id', ContentsController.deleteContents);
+app.delete('/api/v1/media', MediaController.deleteMedia);
 
 
 

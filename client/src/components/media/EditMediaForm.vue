@@ -1,20 +1,30 @@
 <template>
   <div class="edit-media">
+    <h4>Edit File</h4>
     <v-progress-circular v-if="isLoading" indeterminate v-bind:size="70" color="primary"></v-progress-circular>
     <div v-else>
-      <img src="https://static.pexels.com/photos/748920/pexels-photo-748920.jpeg" alt="">
+      <img :src="`http://localhost:3001/${file.url}`" alt="file.description">
+
+      <input class="url-field" onClick="this.select();" :value="`http://localhost:3001/${file.url}`">
+
+      <!-- TODO -->
+      <!-- <v-btn type="submit" color="primary">Replace</v-btn> -->
+
       <form @submit.prevent="handleSubmit($event)" enctype="multipart/form-data">
 
         <v-text-field
-          label="Name">
+          label="Name"
+          v-model="file.name">
         </v-text-field>
 
         <v-text-field
           label="Description"
+          v-model="file.description"
           multi-line>
         </v-text-field>
 
-        <button type="submit">Save</button>
+        <v-btn type="submit" color="primary">Save</v-btn>
+        <v-btn type="button" color="error" @click="deleteFile">Delete</v-btn>
       </form>
     </div>
   </div>
@@ -26,27 +36,32 @@ import Component from "vue-class-component";
 import { Action } from "vuex-class";
 
 // Models
-// import { File } from "../../models/File";
+import { File } from "../../models/File";
 
 // Services
 import MediaService from "../../services/MediaService";
 
 @Component({})
 export default class EditMediaForm extends Vue {
-  file = null;
+  file: File | null = null;
   isLoading: boolean = false;
 
   @Action addNotification: any;
 
-  created() {
-    const editId = this.$route.query && this.$route.query.id;
-    if (editId) {
-      // TODO
-      console.log("Need to load media...");
+  async created() {
+    const fileId = this.$route.query && this.$route.query.id;
+    if (fileId) {
+      this.isLoading = true;
+      const request = await MediaService.getMedia({ ids: [fileId] });
+      this.file = request[0];
+      this.isLoading = false;
     }
   }
 
-  deleteFile(id: number) {}
+  highlightUrl(event: any) {
+    event.target.focus();
+    event.target.select();
+  }
 
   async handleSubmit(event: Event) {
     if (this.file) {
@@ -55,7 +70,7 @@ export default class EditMediaForm extends Vue {
       } catch (error) {
         console.log(error);
         this.addNotification({
-          media: "There was an error adding that media",
+          content: "There was an error adding that media",
           type: "error"
         });
       }
@@ -63,11 +78,32 @@ export default class EditMediaForm extends Vue {
       alert("Please select a file");
     }
   }
+
+  async deleteFile() {
+    const isOk = confirm("Are you sure you want to do that?");
+    if (isOk && this.file) {
+      try {
+        await MediaService.deleteMedia(this.file.id);
+        this.addNotification({
+          content: "File deleted.",
+          type: "success"
+        });
+        this.$router.push({ name: "MediaLibrary" });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 }
 </script>
 
-<style>
-.preview img {
-  max-height: 300px;
+<style lang="scss">
+.url-field {
+  display: block;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(#000, 0.3);
+  padding: 0.2rem 0.5rem;
+  background-color: rgba(#000, 0.1);
 }
 </style>
