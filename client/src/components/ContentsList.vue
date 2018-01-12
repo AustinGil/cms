@@ -71,7 +71,7 @@ export default class ContentsList extends Vue {
         // TODO: Change this to just updating state
         window.history.go();
       } catch (error) {
-        this.addNotification({ content: "Failed." });
+        this.addNotification({ content: "Failed.", type: "error" });
       }
     } else {
       // TODO
