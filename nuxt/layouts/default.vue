@@ -10,32 +10,32 @@
           </v-list-tile-action>
         </v-list-tile> -->
 
-        <!-- <router-link to="/" tag="v-list-tile"> -->
+        <router-link to="/" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
-        <!-- </router-link> -->
+        </router-link>
 
-        <!-- <router-link to="/content" tag="v-list-tile"> -->
+        <router-link to="/content" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>folder</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Content</v-list-tile-title>
           </v-list-tile-content>
-        <!-- </router-link> -->
+        </router-link>
 
-        <!-- <router-link to="/media" tag="v-list-tile"> -->
+        <router-link to="/media" tag="v-list-tile">
           <v-list-tile-action>
             <v-icon>perm_media</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Media</v-list-tile-title>
           </v-list-tile-content>
-        <!-- </router-link> -->
+        </router-link>
       </v-list>
     </v-navigation-drawer>
 
@@ -48,7 +48,7 @@
         <v-flex xs12>
 
           <nuxt/>
-          <!-- <router-view pageTitle=""></router-view> -->
+
         </v-flex>
       </v-container>
     </v-content>
@@ -66,9 +66,9 @@ export default {
     return {
       hideMenu: true,
       drawer: false
-    }
+    };
   }
-}
+};
 </script>
 
 
