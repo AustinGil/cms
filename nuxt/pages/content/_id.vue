@@ -2,9 +2,12 @@
   <div class="single-content">
     <p v-if="isLoading">Loading...</p>
     <div v-else>
-      test
-      <!-- <h1>{{ content.title }}</h1>
-      <div>{{ content.body }}</div> -->
+      <h1>{{ content.title }}</h1>
+      <div>{{ content.body }}</div>
+
+      <v-card v-if="meta" class="meta-fields">
+        <meta-fields :fields="meta"></meta-fields>
+      </v-card>
     </div>
   </div>
 </template>
@@ -13,11 +16,14 @@
 // Services
 import ContentService from "@/services/ContentService";
 
+// Components
+import MetaFields from "@/components/MetaFields";
+
 export default {
-  async asyncData() {
-    const options = { ids: [9] };
+  async asyncData({ params }) {
+    const options = { ids: [params.id] };
     const contents = await ContentService.getContents(options);
-    console.log(contents);
+
     return {
       content: contents[0]
     };
@@ -26,20 +32,52 @@ export default {
   data() {
     return {
       isLoading: false,
-      content: null
+      meta: [
+        {
+          type: "text",
+          label: "Text",
+          required: true
+        },
+        {
+          type: "radio",
+          label: "Radio",
+          options: [
+            {
+              label: "One",
+              value: "one"
+            },
+            {
+              label: "Two",
+              value: "two"
+            }
+          ]
+        },
+        {
+          type: "select",
+          label: "Select",
+          options: [
+            {
+              label: "One",
+              value: "one"
+            },
+            {
+              label: "Two",
+              value: "two"
+            }
+          ]
+        }
+      ]
     };
+  },
+
+  components: {
+    MetaFields
   }
-
-  // async created() {
-  //   const options = { ids: [9] };
-  //   const contents = await ContentService.getContents(options);
-  //   this.isLoading = false;
-
-  //   console.log(contents);
-  // }
 };
 </script>
 
-<style>
-
+<style scoped>
+.meta-fields {
+  padding: 16px;
+}
 </style>

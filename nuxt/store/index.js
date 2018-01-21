@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import createPersistedState from 'vuex-persistedstate';
 
 // Models
 // import { Content } from "../models/Content";
@@ -10,17 +9,14 @@ Vue.use(Vuex);
 
 const createStore = () => {
   return new Vuex.Store({
-    // export default new Vuex.Store({
     strict: true,
-    plugins: [
-      // createPersistedState()
-    ],
+
     state: {
       contents: [],
       media: [],
-      notifications: [],
-      checker: ""
+      notifications: []
     },
+
     mutations: {
       // Content
       addContents(state, contents) {
@@ -77,7 +73,6 @@ const createStore = () => {
         }, 5 * 1000);
       }
     }
-    // });
   });
 };
 

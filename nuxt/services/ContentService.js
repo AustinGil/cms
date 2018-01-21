@@ -16,7 +16,6 @@ export default {
     };
 
     return fetch(url, reqParams).then(response => {
-      console.log(response);
       switch (response.status) {
         case 500:
           throw new Error("Oops, the server broke...");
@@ -62,7 +61,6 @@ export default {
           throw new Error("Oops, the server broke...");
 
         default:
-          console.log(response);
           return response.json();
       }
     });
