@@ -1,15 +1,32 @@
 <template>
-  <div class="single-content">
+  <form @submit.prevent="handleSubmit">
     <p v-if="isLoading">Loading...</p>
-    <div v-else>
-      <h1>{{ content.title }}</h1>
-      <div>{{ content.body }}</div>
+    <v-layout v-else row wrap class="single-content">
+      <v-flex xs12>
+        <v-text-field
+          label="Title"
+          v-model="content.title">
+        </v-text-field>
+      </v-flex>
+      <v-flex xs12 md12 lg8>
+        <v-card>
+          <v-text-field
+            v-model="content.body"
+            label="Main Content"
+            multi-line>
+          </v-text-field>
+        </v-card>
 
-      <v-card v-if="meta" class="meta-fields">
-        <meta-fields :fields="meta"></meta-fields>
-      </v-card>
-    </div>
-  </div>
+        <v-card v-if="meta" class="meta-fields">
+          <meta-fields :fields="meta"></meta-fields>
+        </v-card>
+      </v-flex>
+
+      <v-flex xs12 md12 lg4>
+        <v-btn @click="handleSubmit">Save</v-btn>
+      </v-flex>
+    </v-layout>
+  </form>
 </template>
 
 <script>
@@ -55,19 +72,28 @@ export default {
         {
           type: "select",
           label: "Select",
-          options: [
-            {
-              label: "One",
-              value: "one"
-            },
-            {
-              label: "Two",
-              value: "two"
-            }
-          ]
+          options: ["One", "Two", "Three"]
+        },
+        {
+          type: "checkbox",
+          label: "Checkbox"
+        },
+        {
+          type: "switch",
+          label: "Switch"
+        },
+        {
+          type: "textarea",
+          label: "Textarea"
         }
       ]
     };
+  },
+
+  methods: {
+    handleSubmit() {
+      console.log("Saved!");
+    }
   },
 
   components: {
@@ -77,7 +103,7 @@ export default {
 </script>
 
 <style scoped>
-.meta-fields {
+.card {
   padding: 16px;
 }
 </style>
