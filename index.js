@@ -1,20 +1,20 @@
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Models
-const { sequelize } = require('./models');
+const { sequelize } = require("./models");
 
 // Middleware
-const uploadsMiddleware = require('./middleware/uploads');
+const uploadsMiddleware = require("./middleware/uploads");
 
 // Controllers
-const ContentsController = require('./controllers/ContentsController');
-const MediaController = require('./controllers/MediaController');
+const ContentsController = require("./controllers/ContentsController");
+const MediaController = require("./controllers/MediaController");
 
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').load();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").load();
 }
 
 const app = express();
@@ -25,69 +25,70 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
 
 // Serving files from the upload folder
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-const CLIENT_PATH = path.join(__dirname + '/client');
+const CLIENT_PATH = path.join(__dirname + "/client");
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(CLIENT_PATH + '/index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(CLIENT_PATH + "/index.html"));
 });
 
 // Contents
-app.get('/api/v1/contents', ContentsController.getContents);
-app.post('/api/v1/contents',
-	// uploadsMiddleware.upload,
-	// uploadsMiddleware.resize,
-	ContentsController.addContents
+app.get("/api/v1/contents", ContentsController.getContents);
+app.post(
+  "/api/v1/contents",
+  // uploadsMiddleware.upload,
+  // uploadsMiddleware.resize,
+  ContentsController.addContents
 );
-app.delete('/api/v1/contents/:id', ContentsController.deleteContents);
+app.delete("/api/v1/contents/:id", ContentsController.deleteContents);
 
 // Media
-app.get('/api/v1/media', MediaController.getMedia);
-app.post('/api/v1/media',
-	uploadsMiddleware.upload,
-	// uploadsMiddleware.resize,
-	MediaController.addMedia
+app.get("/api/v1/media", MediaController.getMedia);
+app.post(
+  "/api/v1/media",
+  uploadsMiddleware.upload,
+  // uploadsMiddleware.resize,
+  MediaController.addMedia
 );
-app.delete('/api/v1/media', MediaController.deleteMedia);
-
-
+app.delete("/api/v1/media", MediaController.deleteMedia);
 
 // Beginning GraphQL
-const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
+const graphqlHTTP = require("express-graphql");
+const { buildSchema } = require("graphql");
 
-const users = [  // Dummy data
-	{
-		id: 1,
-		name: 'Brian',
-		age: '21',
-		gender: 'M'
-	},
-	{
-		id: 2,
-		name: 'Kim',
-		age: '22',
-		gender: 'M'
-	},
-	{
-		id: 3,
-		name: 'Joseph',
-		age: '23',
-		gender: 'M'
-	},
-	{
-		id: 4,
-		name: 'Faith',
-		age: '23',
-		gender: 'F'
-	},
-	{
-		id: 5,
-		name: 'Joy',
-		age: '25',
-		gender: 'F'
-	}
+const users = [
+  // Dummy data
+  {
+    id: 1,
+    name: "Brian",
+    age: "21",
+    gender: "M"
+  },
+  {
+    id: 2,
+    name: "Kim",
+    age: "22",
+    gender: "M"
+  },
+  {
+    id: 3,
+    name: "Joseph",
+    age: "23",
+    gender: "M"
+  },
+  {
+    id: 4,
+    name: "Faith",
+    age: "23",
+    gender: "F"
+  },
+  {
+    id: 5,
+    name: "Joy",
+    age: "25",
+    gender: "F"
+  }
 ];
 
 // Initialize a GraphQL schema
@@ -107,54 +108,55 @@ const schema = buildSchema(`
 	}
 `);
 
-const getUser = (args) => { // return a single user based on id
-	const userID = args.id;
-	return users.filter(user => {
-		return user.id == userID;
-	})[0];
-}
+const getUser = args => {
+  // return a single user based on id
+  const userID = args.id;
+  return users.filter(user => {
+    return user.id == userID;
+  })[0];
+};
 
-const retrieveUsers = (args) => { // Return a list of users. Takes an optional gender parameter
-	if (args.gender) {
-		const gender = args.gender;
-		return users.filter(user => user.gender === gender);
-	} else {
-		return users;
-	}
-}
+const retrieveUsers = args => {
+  // Return a list of users. Takes an optional gender parameter
+  if (args.gender) {
+    const gender = args.gender;
+    return users.filter(user => user.gender === gender);
+  } else {
+    return users;
+  }
+};
 
 const updateUser = ({ id, name, age }) => {
-	users.map(user => {
-		if (user.id === id) {
-			user.name = name;
-			user.age = age;
-			return user;
-		}
-	});
+  users.map(user => {
+    if (user.id === id) {
+      user.name = name;
+      user.age = age;
+      return user;
+    }
+  });
 
-	return users.filter(user => user.id === id)[0];
-}
+  return users.filter(user => user.id === id)[0];
+};
 
 // Root resolver
 const root = {
-	user: getUser,
-	users: retrieveUsers,
-	updateUser: updateUser
+  user: getUser,
+  users: retrieveUsers,
+  updateUser: updateUser
 };
 
-app.use('/graphql', graphqlHTTP({
-	schema: schema,  // Must be provided
-	rootValue: root,
-	graphiql: true,  // Enable GraphiQL when server endpoint is accessed in browser
-}));
-
-
-
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema, // Must be provided
+    rootValue: root,
+    graphiql: true // Enable GraphiQL when server endpoint is accessed in browser
+  })
+);
 
 const port = process.env.PORT || 8000;
 
-sequelize.sync({ force: false })
-	.then(() => {
-		app.listen(port);
-		console.log(`Server started on port ${port}`);
-	});
+sequelize.sync({ force: false }).then(() => {
+  app.listen(port);
+  console.log(`Server started on port ${port}`);
+});

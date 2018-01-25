@@ -87,7 +87,7 @@ button {
 }
 
 table {
-  display: block;
+  width: 100%;
 }
 
 iframe {
