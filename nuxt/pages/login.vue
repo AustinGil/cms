@@ -1,26 +1,33 @@
 <template>
-  <form class="login" @submit.prevent="login">
-    <v-card>
-      <v-text-field
-        label="User name"
-        v-model="username"
-        required>
-      </v-text-field>
+  <v-container fluid fill-height>
+    <v-layout
+      justify-center
+      align-center
+    >
+      <v-flex xs12 md6>
+        <form class="login" @submit.prevent="login">
+          <v-card>
+            <v-text-field
+              label="User name"
+              required>
+            </v-text-field>
 
-      <v-text-field
-        label="Password"
-        v-model="username"
-        required>
-      </v-text-field>
-    </v-card>
+            <v-text-field
+              label="Password"
+              required>
+            </v-text-field>
+          </v-card>
 
-    <v-btn type="submit">Login</v-btn>
-  </form>
+          <v-btn color="primary" type="submit">Login</v-btn>
+        </form>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-// TODO: Change layout to plain
 export default {
+  layout: "blank",
   methods: {
     // Login logic
     // login: function() {
