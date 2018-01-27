@@ -5,7 +5,8 @@
     "docker": "docker-compose up -d",
     "restart": "docker-compose restart",
     "stopper": "docker-compose down",
-    "ssh": "docker exec -i -t app /bin/bash"
+    "ssh": "docker exec -i -t app /bin/bash",
+    "seed": "node ./seed"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
