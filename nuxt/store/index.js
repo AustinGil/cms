@@ -12,9 +12,17 @@ const createStore = () => {
     strict: true,
 
     state: {
+      token: "",
+      status: "",
+      user: {},
       contents: [],
       media: [],
       notifications: []
+    },
+
+    getters: {
+      isAuthenticated: state => !!state.token,
+      authStatus: state => state.status
     },
 
     mutations: {
@@ -46,6 +54,7 @@ const createStore = () => {
         state.notifications.pop();
       }
     },
+
     actions: {
       // Contents
       addContents({ commit }, contents) {

@@ -28,7 +28,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ["vuetify"]
+    vendor: ["vuetify", "vee-validate"]
     /*
     ** Run ESLint on save
     */
@@ -43,5 +43,5 @@ module.exports = {
     //   }
     // }
   },
-  plugins: ["~/plugins/vuetify"]
+  plugins: ["~/plugins/vuetify", "~plugins/vee-validate.js"]
 };
