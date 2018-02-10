@@ -70,25 +70,8 @@ const users = [
     name: "Kim",
     age: "22",
     gender: "M"
-  },
-  {
-    id: 3,
-    name: "Joseph",
-    age: "23",
-    gender: "M"
-  },
-  {
-    id: 4,
-    name: "Faith",
-    age: "23",
-    gender: "F"
-  },
-  {
-    id: 5,
-    name: "Joy",
-    age: "25",
-    gender: "F"
   }
+  // ...
 ];
 
 // Initialize a GraphQL schema

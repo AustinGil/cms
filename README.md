@@ -1,14 +1,16 @@
 # A Content Management System with a modern stack
 
 ### Front End
- - Vue
- - TypeScript
- - SCSS
+
+* Vue
+* SCSS
 
 ### Backend
-- Node
-- Express
-- MySQL
+
+* Node
+* Express
+* MySQL
 
 ### DevOps
-- Docker
+
+* Docker
