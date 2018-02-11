@@ -35,12 +35,7 @@ app.get("/", (req, res) => {
 
 // Contents
 app.get("/api/v1/contents", ContentsController.getContents);
-app.post(
-  "/api/v1/contents",
-  // uploadsMiddleware.upload,
-  // uploadsMiddleware.resize,
-  ContentsController.addContents
-);
+app.post("/api/v1/contents", ContentsController.addContents);
 app.delete("/api/v1/contents/:id", ContentsController.deleteContents);
 
 // Media
@@ -53,7 +48,7 @@ app.post(
 );
 app.delete("/api/v1/media", MediaController.deleteMedia);
 
-// Beginning GraphQL
+/** Beginning GraphQL stuff */
 const graphqlHTTP = require("express-graphql");
 const { buildSchema } = require("graphql");
 
@@ -136,6 +131,7 @@ app.use(
     graphiql: true // Enable GraphiQL when server endpoint is accessed in browser
   })
 );
+/** End GraphQL stuff */
 
 const port = process.env.PORT || 8000;
 
