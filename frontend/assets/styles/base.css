@@ -1,0 +1,100 @@
+html {
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font: 16px/1.5 sans-serif;
+}
+
+p,
+figure,
+blockquote {
+  margin: 0 0 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+p:last-child,
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+figure:last-child,
+blockquote:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  /* Add hardware acceleration for smoother transitions */
+  transform: translate3d(0, 0, 0);
+  /* Helps prevent flickers on opacity transitions */
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  backface-visibility: hidden;
+}
+
+img,
+figure,
+svg {
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+svg {
+  fill: currentColor;
+}
+
+figcaption {
+  margin-top: 0.5rem;
+}
+
+button {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-align: inherit;
+  text-transform: inherit;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  letter-spacing: inherit;
+  background: none;
+  cursor: pointer;
+  overflow: visible;
+}
+
+table {
+  width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
