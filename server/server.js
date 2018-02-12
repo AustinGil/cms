@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // Models
 const { sequelize } = require("./models");
@@ -10,12 +12,13 @@ const { sequelize } = require("./models");
 const uploadsMiddleware = require("./middleware/uploads");
 
 // Controllers
+const AuthController = require("./controllers/AuthController");
 const ContentsController = require("./controllers/ContentsController");
 const MediaController = require("./controllers/MediaController");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").load();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   require("dotenv").load();
+// }
 
 const app = express();
 
@@ -23,6 +26,13 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(cors());
+
+const config = require("./config");
+
+app.use(
+  "/auth",
+  AuthController({ express, bcrypt, jwt, jwtToken: config.jwtToken })
+);
 
 // Serving files from the upload folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -48,7 +58,7 @@ app.post(
 );
 app.delete("/api/v1/media", MediaController.deleteMedia);
 
-/** Beginning GraphQL stuff */
+/** Beginning GraphQL stuff *
 const graphqlHTTP = require("express-graphql");
 const { buildSchema } = require("graphql");
 

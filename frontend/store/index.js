@@ -1,15 +1,9 @@
 import cookie from "cookie";
 import { setAuthToken, resetAuthToken } from "~/utils/auth";
 
-export const state = () => ({
-  sidebar: false
-});
+export const state = () => ({});
 
-export const mutations = {
-  toggleSidebar(state) {
-    state.sidebar = !state.sidebar;
-  }
-};
+export const mutations = {};
 
 export const actions = {
   nuxtServerInit({ dispatch }, context) {
