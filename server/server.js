@@ -2,13 +2,20 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+
+const config = require("./config");
+
+const app = express();
+
+// Takes the raw requests and turns them into usable properties on req.body
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(cors());
 
 // Models
 const { sequelize } = require("./models");
 
-// Middleware
+// Middlewares
 const uploadsMiddleware = require("./middleware/uploads");
 
 // Controllers
@@ -20,19 +27,8 @@ const MediaController = require("./controllers/MediaController");
 //   require("dotenv").load();
 // }
 
-const app = express();
-
-// Takes the raw requests and turns them into usable properties on req.body
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.use(cors());
-
-const config = require("./config");
-
-app.use(
-  "/auth",
-  AuthController({ express, bcrypt, jwt, jwtToken: config.jwtToken })
-);
+// app.use("/auth", AuthController({ express, jwtToken: config.jwtToken }));
+app.post("/auth/login", AuthController.login);
 
 // Serving files from the upload folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
