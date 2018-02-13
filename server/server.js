@@ -8,9 +8,9 @@ const config = require("./config");
 const app = express();
 
 // Takes the raw requests and turns them into usable properties on req.body
+app.use(cors());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.use(cors());
 
 // Models
 const { sequelize } = require("./models");
@@ -27,9 +27,6 @@ const MediaController = require("./controllers/MediaController");
 //   require("dotenv").load();
 // }
 
-// app.use("/auth", AuthController({ express, jwtToken: config.jwtToken }));
-app.post("/auth/login", AuthController.login);
-
 // Serving files from the upload folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -38,6 +35,10 @@ const CLIENT_PATH = path.join(__dirname + "/client");
 app.get("/", (req, res) => {
   res.sendFile(path.join(CLIENT_PATH + "/index.html"));
 });
+
+// Authentication
+app.post("/auth/login", AuthController.login);
+app.post("/auth/register", AuthController.register);
 
 // Contents
 app.get("/api/v1/contents", ContentsController.getContents);

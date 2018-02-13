@@ -7,7 +7,7 @@ module.exports = {
   // },
   env: "dev",
   // port: "41205",
-  jwtToken: "********************"
+  jwtToken: "my jwt secret key"
   // google_client_id: "********************",
   // google_client_secret: "********************"
 };

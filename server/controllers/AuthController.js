@@ -6,6 +6,32 @@ const { jwtToken } = require("../config");
 const { User } = require("../models");
 
 module.exports = {
+  register(req, res) {
+    bcrypt.hash(req.body.password, 10, async (error, hashedPassword) => {
+      if (error) {
+        res.status(500).json({
+          error: "There was an error hashing the password."
+        });
+      } else {
+        await User.create({
+          email: req.body.email,
+          password: hashedPassword
+        });
+        try {
+          res.status(201).json({
+            type: "success",
+            message: "User registered successfully."
+          });
+        } catch (err) {
+          console.log(err);
+          res.status(500).send({
+            error: "An error has occured trying to create the user."
+          });
+        }
+      }
+    });
+  },
+
   async login(req, res) {
     const email = req.body.email;
     const password = req.body.password;
