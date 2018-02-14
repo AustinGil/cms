@@ -20,8 +20,11 @@ const uploadsMiddleware = require("./middleware/uploads");
 
 // Controllers
 const UsersController = require("./controllers/UsersController");
-const ContentsController = require("./controllers/ContentsController");
 const MediaController = require("./controllers/MediaController");
+
+// Routes
+const userRoutes = require("./routes/users");
+const contentRoutes = require("./routes/contents");
 
 // if (process.env.NODE_ENV !== "production") {
 //   require("dotenv").load();
@@ -36,14 +39,12 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(CLIENT_PATH + "/index.html"));
 });
 
-// Userentication
+// Users
+app.use("/api/v1/users", userRoutes);
 app.post("/api/v1/users/login", UsersController.login);
-app.post("/api/v1/users/register", UsersController.register);
 
 // Contents
-app.get("/api/v1/contents", ContentsController.getContents);
-app.post("/api/v1/contents", ContentsController.addContents);
-app.delete("/api/v1/contents/:id", ContentsController.deleteContents);
+app.use("/api/v1/users", contentRoutes);
 
 // Media
 app.get("/api/v1/media", MediaController.getMedia);
