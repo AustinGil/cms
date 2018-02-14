@@ -19,7 +19,7 @@ const { sequelize } = require("./models");
 const uploadsMiddleware = require("./middleware/uploads");
 
 // Controllers
-const AuthController = require("./controllers/AuthController");
+const UsersController = require("./controllers/UsersController");
 const ContentsController = require("./controllers/ContentsController");
 const MediaController = require("./controllers/MediaController");
 
@@ -36,9 +36,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(CLIENT_PATH + "/index.html"));
 });
 
-// Authentication
-app.post("/auth/login", AuthController.login);
-app.post("/auth/register", AuthController.register);
+// Userentication
+app.post("/api/v1/users/login", UsersController.login);
+app.post("/api/v1/users/register", UsersController.register);
 
 // Contents
 app.get("/api/v1/contents", ContentsController.getContents);
