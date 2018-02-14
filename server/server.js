@@ -44,7 +44,7 @@ app.use("/api/v1/users", userRoutes);
 app.post("/api/v1/users/login", UsersController.login);
 
 // Contents
-app.use("/api/v1/users", contentRoutes);
+app.use("/api/v1/contents", contentRoutes);
 
 // Media
 app.get("/api/v1/media", MediaController.getMedia);
